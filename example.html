@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Булева алгебра — Дискретная математика</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #F5F2EC;
+    --ink: #1A1A1A;
+    --accent: #C8402B;
+    --soft: #E8E2D8;
+    --muted: #8A8070;
+    --mono: 'IBM Plex Mono', monospace;
+    --serif: 'Playfair Display', serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    overflow-x: hidden;
+  }
+
+  /* NAV DOTS */
+  .nav-dots {
+    position: fixed;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 100;
+  }
+  .dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    background: var(--muted);
+    cursor: pointer;
+    transition: all .3s;
+    border: none;
+    padding: 0;
+  }
+  .dot.active { background: var(--accent); transform: scale(1.4); }
+
+  /* SLIDES */
+  .slide {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 6rem;
+    position: relative;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+  .slide.visible { opacity: 1; transform: translateY(0); }
+
+  .slide-inner {
+    max-width: 960px;
+    width: 100%;
+  }
+
+  /* SLIDE NUMBER */
+  .slide-num {
+    font-family: var(--mono);
+    font-size: .75rem;
+    color: var(--muted);
+    letter-spacing: .15em;
+    margin-bottom: 2rem;
+  }
+
+  /* TYPOGRAPHY */
+  h1 {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 7vw, 6rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: -.02em;
+  }
+  h2 {
+    font-family: var(--serif);
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+  }
+  h3 {
+    font-family: var(--mono);
+    font-size: .85rem;
+    font-weight: 500;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: .6rem;
+  }
+  p {
+    font-size: 1.05rem;
+    line-height: 1.75;
+    color: #333;
+    font-weight: 300;
+    max-width: 640px;
+  }
+
+  /* DIVIDER */
+  .rule { width: 48px; height: 2px; background: var(--accent); margin: 1.5rem 0; }
+
+  /* FORMULA BOX */
+  .formula {
+    font-family: var(--mono);
+    background: var(--soft);
+    border-left: 3px solid var(--accent);
+    padding: 1rem 1.5rem;
+    margin: 1.2rem 0;
+    font-size: 1rem;
+    line-height: 1.8;
+    border-radius: 0 4px 4px 0;
+  }
+
+  /* GRID */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+  }
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  /* CARD */
+  .card {
+    background: var(--soft);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #DDD8CC;
+  }
+  .card h3 { margin-bottom: .4rem; }
+  .card p { font-size: .95rem; }
+
+  /* TABLE */
+  table {
+    border-collapse: collapse;
+    font-family: var(--mono);
+    font-size: .9rem;
+    margin-top: 1rem;
+  }
+  th {
+    background: var(--ink);
+    color: var(--bg);
+    padding: .5rem 1.2rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: .8rem;
+    letter-spacing: .1em;
+  }
+  td {
+    border: 1px solid #DDD8CC;
+    padding: .5rem 1.2rem;
+    text-align: center;
+    background: var(--bg);
+  }
+  tr:nth-child(even) td { background: var(--soft); }
+
+  /* BIG NUMBER */
+  .big { font-family: var(--mono); font-size: 4rem; font-weight: 500; color: var(--accent); line-height: 1; }
+
+  /* TAG */
+  .tag {
+    display: inline-block;
+    background: var(--ink);
+    color: var(--bg);
+    font-family: var(--mono);
+    font-size: .7rem;
+    letter-spacing: .1em;
+    padding: .25rem .75rem;
+    border-radius: 2px;
+    margin-bottom: 1.2rem;
+  }
+
+  /* EXAMPLE BADGE */
+  .example-label {
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--accent);
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    border: 1px solid var(--accent);
+    display: inline-block;
+    padding: .15rem .6rem;
+    margin-bottom: .5rem;
+    border-radius: 2px;
+  }
+
+  /* SLIDE 1 — COVER */
+  #slide-1 { background: var(--ink); }
+  #slide-1 h1 { color: var(--bg); }
+  #slide-1 p { color: #AAA; max-width: 540px; margin-top: 1.5rem; }
+  #slide-1 .rule { background: var(--accent); }
+  #slide-1 .slide-num { color: #555; }
+  .cover-sub {
+    font-family: var(--mono);
+    font-size: .85rem;
+    color: #666;
+    margin-top: 3rem;
+    letter-spacing: .1em;
+  }
+  .red { color: var(--accent); }
+
+  /* SLIDE separators */
+  .slide:not(#slide-1) { border-top: 1px solid #E0DACF; }
+
+  /* TIMELINE */
+  .timeline { margin-top: 1.5rem; }
+  .tl-item {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 1.2rem;
+    align-items: flex-start;
+  }
+  .tl-dot {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: .4rem;
+  }
+
+  /* FOOTER */
+  .slide-footer {
+    position: absolute;
+    bottom: 2rem;
+    left: 6rem;
+    right: 6rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: .7rem;
+    color: var(--muted);
+    border-top: 1px solid #E0DACF;
+    padding-top: .8rem;
+  }
+  #slide-1 .slide-footer { border-top-color: #333; color: #444; }
+
+  /* GATE SYMBOL */
+  .gates { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
+  .gate-box {
+    background: var(--soft);
+    border: 1px solid #DDD8CC;
+    border-radius: 8px;
+    padding: 1.2rem 1.5rem;
+    text-align: center;
+    min-width: 140px;
+  }
+  .gate-sym {
+    font-family: var(--mono);
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--accent);
+    display: block;
+    margin-bottom: .4rem;
+  }
+  .gate-name {
+    font-family: var(--mono);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  @media (max-width: 768px) {
+    .slide { padding: 3rem 1.5rem; }
+    .grid-2, .grid-3 { grid-template-columns: 1fr; }
+    .nav-dots { right: 1rem; }
+    .slide-footer { left: 1.5rem; right: 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV DOTS -->
+<nav class="nav-dots" id="navDots"></nav>
+
+<!-- ══════════════════ SLIDE 1 — COVER ══════════════════ -->
+<section class="slide" id="slide-1">
+  <div class="slide-inner">
+    <div class="slide-num">01 / 09</div>
+    <h1>Булева<br>алгебра<span class="red">.</span></h1>
+    <div class="rule"></div>
+    <p>Математика, без которой не было бы ни компьютеров, ни смартфонов, ни интернета. Всё начинается с двух чисел: <strong style="color:#fff">0</strong> и <strong style="color:var(--accent)">1</strong>.</p>
+    <div class="cover-sub">Дискретная математика · ПИ-1 23 · Урозматов Алымбек</div>
+  </div>
+  <div class="slide-footer">
+    <span>Дискретная математика</span>
+    <span>Булева алгебра</span>
+  </div>
+</section>
+
+<!-- ══════════════════ SLIDE 2 — ЧТО ТАКОЕ ══════════════════ -->
+<section class="slide" id="slide-2">
+  <div class="slide-inner">
+    <div class="slide-num">02 / 09</div>
+    <div class="tag">Основы</div>
+    <h2>Что такое булева алгебра?</h2>
+    <div class="rule"></div>
+    <p>Раздел математики, где переменные могут принимать только <strong>два значения</strong>: истина (<code style="font-family:var(--mono);color:var(--accent)">1</code>) или ложь (<code style="font-family:var(--mono);color:var(--accent)">0</code>). Названа в честь математика Джорджа Буля (1854 г.).</p>
+
+    <div class="grid-2" style="margin-top:2rem">
+      <div>
+        <div class="example-label">Пример из жизни</div>
+        <div class="formula">
+          Свет включён? → 1 (да)<br>
+          Свет выключен? → 0 (нет)<br><br>
+          Дверь закрыта? → 1<br>
+          Дверь открыта? → 0
+        </div>
+      </div>
+      <div>
+        <div class="example-label">Почему важно</div>
+        <div class="formula">
+          Процессор компьютера<br>
+          выполняет миллиарды<br>
+          таких операций в секунду.<br><br>
+          Всё — только 0 и 1.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>02 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 3 — ОСНОВНЫЕ ОПЕРАЦИИ ══════════════════ -->
+<section class="slide" id="slide-3">
+  <div class="slide-inner">
+    <div class="slide-num">03 / 09</div>
+    <div class="tag">Операции</div>
+    <h2>Три базовые операции</h2>
+    <div class="rule"></div>
+
+    <div class="grid-3">
+      <div class="card">
+        <h3>AND · Конъюнкция</h3>
+        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">A ∧ B</div>
+        <p>"И" — результат 1, только если <strong>оба</strong> условия верны.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
+          0 ∧ 0 = 0<br>
+          1 ∧ 0 = 0<br>
+          1 ∧ 1 = <strong>1</strong>
+        </div>
+      </div>
+      <div class="card">
+        <h3>OR · Дизъюнкция</h3>
+        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">A ∨ B</div>
+        <p>"ИЛИ" — результат 1, если <strong>хотя бы одно</strong> условие верно.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
+          0 ∨ 0 = 0<br>
+          1 ∨ 0 = <strong>1</strong><br>
+          1 ∨ 1 = <strong>1</strong>
+        </div>
+      </div>
+      <div class="card">
+        <h3>NOT · Отрицание</h3>
+        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">¬A</div>
+        <p>"НЕ" — инвертирует значение: из 1 делает 0, и наоборот.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
+          ¬0 = <strong>1</strong><br>
+          ¬1 = <strong>0</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>03 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 4 — ПРИМЕР ИЗ ЖИЗНИ ══════════════════ -->
+<section class="slide" id="slide-4">
+  <div class="slide-inner">
+    <div class="slide-num">04 / 09</div>
+    <div class="tag">Жизненный пример</div>
+    <h2>Кофе утром: логика в быту</h2>
+    <div class="rule"></div>
+    <p>Вы встаёте и думаете: «Выпью ли я кофе?» Переведём это на булеву алгебру.</p>
+
+    <div class="formula" style="margin-top:1.5rem;font-size:1rem">
+      A = «есть кофе дома»<br>
+      B = «есть время»<br><br>
+      Пью кофе = A <strong>∧</strong> B<br>
+      (только если есть И кофе, И время)<br><br>
+      Беру кофе в кофейне = <strong>¬</strong>A <strong>∧</strong> B<br>
+      (нет кофе дома, но время есть)
+    </div>
+
+    <div class="example-label" style="margin-top:1.5rem">Вывод</div>
+    <p>Наш мозг постоянно решает булевы задачи — математика просто даёт им точный язык.</p>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>04 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 5 — ТАБЛИЦА ИСТИННОСТИ ══════════════════ -->
+<section class="slide" id="slide-5">
+  <div class="slide-inner">
+    <div class="slide-num">05 / 09</div>
+    <div class="tag">Таблицы истинности</div>
+    <h2>Таблица истинности</h2>
+    <div class="rule"></div>
+    <p>Способ перечислить все возможные комбинации входных значений и соответствующие результаты. Для <em>n</em> переменных — <strong>2ⁿ</strong> строк.</p>
+
+    <div class="grid-2" style="margin-top:1.5rem;align-items:start">
+      <div>
+        <div class="example-label">A ∧ B (AND)</div>
+        <table>
+          <tr><th>A</th><th>B</th><th>A ∧ B</th></tr>
+          <tr><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td>0</td></tr>
+          <tr><td>1</td><td>0</td><td>0</td></tr>
+          <tr><td>1</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
+        </table>
+      </div>
+      <div>
+        <div class="example-label">A ∨ B (OR)</div>
+        <table>
+          <tr><th>A</th><th>B</th><th>A ∨ B</th></tr>
+          <tr><td>0</td><td>0</td><td>0</td></tr>
+          <tr><td>0</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
+          <tr><td>1</td><td>0</td><td style="color:var(--accent);font-weight:700">1</td></tr>
+          <tr><td>1</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>05 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 6 — ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ══════════════════ -->
+<section class="slide" id="slide-6">
+  <div class="slide-inner">
+    <div class="slide-num">06 / 09</div>
+    <div class="tag">Производные функции</div>
+    <h2>Другие булевы функции</h2>
+    <div class="rule"></div>
+
+    <div class="grid-2">
+      <div class="card">
+        <h3>XOR · Исключающее ИЛИ</h3>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">A ⊕ B</div>
+        <p>Равно 1, только если значения <strong>разные</strong>.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0⊕0=0 · 1⊕0=1 · 1⊕1=0</div>
+        <div class="example-label" style="margin-top:.8rem">Пример</div>
+        <p style="font-size:.9rem">«Либо чай, либо кофе — но не оба сразу»</p>
+      </div>
+      <div class="card">
+        <h3>NAND · НЕ-И</h3>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">¬(A ∧ B)</div>
+        <p>Инверсия AND. Равно 0 лишь когда оба равны 1.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→1 · 1·1→0</div>
+        <div class="example-label" style="margin-top:.8rem">Интересный факт</div>
+        <p style="font-size:.9rem">Только из NAND можно собрать любую логику!</p>
+      </div>
+      <div class="card">
+        <h3>NOR · НЕ-ИЛИ</h3>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">¬(A ∨ B)</div>
+        <p>Инверсия OR. Равно 1 только когда оба 0.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→0 · 1·1→0</div>
+      </div>
+      <div class="card">
+        <h3>XNOR · Эквивалентность</h3>
+        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">A ↔ B</div>
+        <p>Равно 1, если значения <strong>одинаковые</strong>.</p>
+        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→0 · 1·1→1</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>06 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 7 — ЗАКОНЫ ══════════════════ -->
+<section class="slide" id="slide-7">
+  <div class="slide-inner">
+    <div class="slide-num">07 / 09</div>
+    <div class="tag">Законы</div>
+    <h2>Основные законы булевой алгебры</h2>
+    <div class="rule"></div>
+
+    <div class="grid-2">
+      <div>
+        <h3>Идемпотентность</h3>
+        <div class="formula">A ∧ A = A<br>A ∨ A = A</div>
+        <p style="font-size:.9rem">«Включить включённый свет — он всё равно включён»</p>
+
+        <h3 style="margin-top:1.2rem">Закон де Моргана</h3>
+        <div class="formula">¬(A ∧ B) = ¬A ∨ ¬B<br>¬(A ∨ B) = ¬A ∧ ¬B</div>
+        <p style="font-size:.9rem">Отрицание суммы = произведение отрицаний</p>
+      </div>
+      <div>
+        <h3>Дистрибутивность</h3>
+        <div class="formula">A ∧ (B ∨ C) =<br>(A ∧ B) ∨ (A ∧ C)</div>
+
+        <h3 style="margin-top:1.2rem">Поглощение</h3>
+        <div class="formula">A ∨ (A ∧ B) = A<br>A ∧ (A ∨ B) = A</div>
+        <p style="font-size:.9rem">«Если условие уже включает другое — оно поглощает его»</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>07 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 8 — ПРИМЕНЕНИЕ ══════════════════ -->
+<section class="slide" id="slide-8">
+  <div class="slide-inner">
+    <div class="slide-num">08 / 09</div>
+    <div class="tag">Применение</div>
+    <h2>Где всё это используется?</h2>
+    <div class="rule"></div>
+
+    <div class="grid-3">
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <h3>Процессоры</h3>
+        <p>Каждый транзистор в чипе — это булев элемент. Миллиарды переключений в секунду.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <h3>Поиск</h3>
+        <p>Google: «кофе AND Бишкек NOT дорого» — это дословно булев запрос.</p>
+      </div>
+      <div class="card" style="border-top:3px solid var(--accent)">
+        <h3>Программирование</h3>
+        <p>if (авторизован AND подписка) — каждое условие в коде это булева функция.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #888">
+        <h3>Базы данных</h3>
+        <p>SQL-запросы WHERE используют AND, OR, NOT для фильтрации данных.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #888">
+        <h3>Электроника</h3>
+        <p>Светофоры, лифты, сигнализации — вся логика работы на булевых схемах.</p>
+      </div>
+      <div class="card" style="border-top:3px solid #888">
+        <h3>ИИ</h3>
+        <p>Нейросети — миллионы логических операций, собранных в граф вычислений.</p>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>08 / 09</span></div>
+</section>
+
+<!-- ══════════════════ SLIDE 9 — ИТОГ ══════════════════ -->
+<section class="slide" id="slide-9">
+  <div class="slide-inner">
+    <div class="slide-num">09 / 09</div>
+    <div class="tag">Итог</div>
+    <h2>Два числа,<br>изменившие мир</h2>
+    <div class="rule"></div>
+
+    <div style="display:flex;gap:3rem;align-items:center;margin-top:1rem;flex-wrap:wrap">
+      <div>
+        <div class="big">0</div>
+        <div class="big" style="color:var(--ink)">1</div>
+      </div>
+      <div>
+        <p>Булева алгебра — это универсальный язык логики. Из всего двух значений и трёх операций вырастает вся вычислительная математика.</p>
+        <div class="formula" style="margin-top:1rem">
+          AND · OR · NOT<br>
+          → XOR · NAND · NOR<br>
+          → Процессоры · Программы · ИИ
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #E0DACF;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
+      <div>
+        <div style="font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.3rem">АВТОР</div>
+        <div style="font-family:var(--serif);font-size:1.2rem;font-weight:700">Урозматов Алымбек</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:var(--muted)">ПИ-1 23 · Дискретная математика</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.3rem">ТЕМА</div>
+        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700">Булева алгебра</div>
+        <div style="font-family:var(--mono);font-size:.8rem;color:var(--muted)">и булевы функции</div>
+      </div>
+    </div>
+  </div>
+  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>09 / 09</span></div>
+</section>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const nav = document.getElementById('navDots');
+
+  // Build dots
+  slides.forEach((_, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'dot';
+    btn.title = `Слайд ${i+1}`;
+    btn.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
+    nav.appendChild(btn);
+  });
+
+  const dots = nav.querySelectorAll('.dot');
+
+  // Intersection observer
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        const idx = [...slides].indexOf(entry.target);
+        dots.forEach((d,i) => d.classList.toggle('active', i === idx));
+      }
+    });
+  }, { threshold: 0.3 });
+
+  slides.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>
