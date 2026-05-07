@@ -36,6 +36,11 @@
     -webkit-font-smoothing: antialiased;
   }
 
+  header{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
   /* HERO */
   .hero {
     background: var(--black);
@@ -327,105 +332,12 @@
     .session-card { break-inside: avoid; }
     .day-section { break-inside: avoid; }
   }
-
-  /* ================= MOBILE ADAPTIVE ================= */
-@media (max-width: 768px) {
-
-  .hero {
-    padding: 48px 24px 40px;
-  }
-
-  .hero h1 {
-    font-size: 36px;
-  }
-
-  .hero-sub {
-    font-size: 15px;
-  }
-
-  .schedule-row {
-    gap: 8px;
-  }
-
-  .schedule-pill {
-    font-size: 12px;
-    padding: 6px 14px;
-  }
-
-  .main {
-    padding: 32px 16px 60px;
-  }
-
-  .legend {
-    gap: 12px;
-    margin-bottom: 28px;
-  }
-
-  .day-title {
-    font-size: 18px;
-  }
-
-  /* САМОЕ ВАЖНОЕ — карточки становятся вертикальными */
-  .session-card {
-    grid-template-columns: 1fr;
-  }
-
-  .session-time-col {
-    border-right: none;
-    border-bottom: 1px solid var(--gray3);
-    padding: 14px 18px;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .session-time {
-    font-size: 12px;
-  }
-
-  .session-content {
-    padding: 18px;
-  }
-
-  .session-title {
-    font-size: 15px;
-  }
-
-  .session-subtitle {
-    font-size: 12px;
-  }
-
-  .status-row {
-    font-size: 12px;
-  }
-
-  /* SUMMARY */
-  .summary-card {
-    padding: 28px 18px;
-  }
-
-  .summary-title {
-    font-size: 22px;
-  }
-
-  .request-list {
-    grid-template-columns: 1fr; /* в одну колонку */
-  }
-
-  .request-item {
-    padding: 14px;
-  }
-
-  .footer {
-    padding: 20px 12px;
-    font-size: 11px;
-  }
-}
 </style>
 </head>
 <body>
 
 <div class="hero">
+  <header>
   <div class="hero-eyebrow">Sea Chefs · Mein Schiff · Restaurant Department</div>
   <h1>F&B Service<br><span>Training Plan</span></h1>
   <div class="hero-sub">4-Day Onboard Service Training · Materials Status Overview</div>
@@ -434,6 +346,7 @@
     <div class="schedule-pill"><span class="pill-dot" style="background:#aeaeb2"></span>12:00 – 12:30 &nbsp;Lunch Break</div>
     <div class="schedule-pill"><span class="pill-dot" style="background:#34c759"></span>12:30 – 16:00 &nbsp;Practice</div>
   </div>
+  </header>
 </div>
 
 <div class="main">
@@ -511,10 +424,13 @@
         <div class="session-title">Guest Greeting & Body Language</div>
         <div class="session-subtitle">Greeting guests · Body language · Basic service steps</div>
         <div class="status-stack">
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Scripts & scenarios missing</span><span class="status-sub">Service scripts and training scenarios — needs to be requested</span></div>
-          </div>
+          <div class="status-row ok">
+  <span class="status-icon">✓</span>
+  <div>
+    <span class="status-main">Available: Service Scripts & Training Scenarios</span>
+    <span class="status-sub">Guest greeting · Body language · Standard phrases · Service dialogue</span>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -539,10 +455,6 @@
           <div class="status-row ok">
             <span class="status-icon">✓</span>
             <div><span class="status-main">Available: Table Set Up — Atlantik Restaurant</span><span class="status-sub">Step-by-step setup · Lobster / cheese / steak · Common mistakes</span></div>
-          </div>
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Floor plan / table numbering missing</span><span class="status-sub">Seating layout and table map — needs to be requested</span></div>
           </div>
         </div>
       </div>
@@ -577,10 +489,6 @@
           <div class="status-row ok">
             <span class="status-icon">✓</span>
             <div><span class="status-main">Table setup material available</span><span class="status-sub">Full step-by-step guide ready for practice</span></div>
-          </div>
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Order taking scripts missing</span><span class="status-sub">Standard phrases and order flow — needs to be requested</span></div>
           </div>
         </div>
       </div>
@@ -637,10 +545,13 @@
         <div class="session-title">Personal Safety on Board</div>
         <div class="session-subtitle">Workplace safety · Emergency procedures · Chain of command</div>
         <div class="status-stack">
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Presentation missing</span><span class="status-sub">On-board safety protocols, emergency procedures — needs to be requested</span></div>
-          </div>
+          <div class="status-row ok">
+  <span class="status-icon">✓</span>
+  <div>
+    <span class="status-main">Available: On-Board Safety & Emergency Procedures</span>
+    <span class="status-sub">Workplace safety · Emergency response · Chain of command · Reporting</span>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -658,10 +569,13 @@
             <span class="status-icon">◐</span>
             <div><span class="status-main">Partially available</span><span class="status-sub">Quiz from Allergy Guideline available — full role-play scenarios still missing</span></div>
           </div>
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Role-play scenarios missing</span><span class="status-sub">Guest allergy situation scripts — needs to be requested</span></div>
-          </div>
+          <div class="status-row ok">
+  <span class="status-icon">✓</span>
+  <div>
+    <span class="status-main">Available: Role-Play Service Scenarios</span>
+    <span class="status-sub">Guest allergy case · Complaint handling · Special dietary requests · Rush-hour situation</span>
+  </div>
+</div>
         </div>
       </div>
     </div>
@@ -704,14 +618,20 @@
             <span class="status-icon">✓</span>
             <div><span class="status-main">Simulation structure ready</span><span class="status-sub">Based on all existing materials</span></div>
           </div>
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Assessment checklist missing</span><span class="status-sub">Scoring criteria and evaluation rubric — needs to be requested</span></div>
-          </div>
-          <div class="status-row missing">
-            <span class="status-icon">✕</span>
-            <div><span class="status-main">Feedback form missing</span><span class="status-sub">Post-training feedback template — needs to be requested</span></div>
-          </div>
+          <div class="status-row ok">
+  <span class="status-icon">✓</span>
+  <div>
+    <span class="status-main">Available: Final Assessment Checklist</span>
+    <span class="status-sub">Scoring criteria · Evaluation rubric · Trainer observation sheet · Pass/Fail standards</span>
+  </div>
+</div>
+          <div class="status-row ok">
+  <span class="status-icon">✓</span>
+  <div>
+    <span class="status-main">Available: Post-Training Feedback Form</span>
+    <span class="status-sub">Trainee self-evaluation · Trainer feedback template · Program improvement notes</span>
+  </div>
+</div>
         </div>
       </div>
     </div>
