@@ -327,6 +327,85 @@
     .req-card { break-inside: avoid; }
     .have-card { break-inside: avoid; }
   }
+
+  /* ================= MOBILE ADAPTIVE ================= */
+@media (max-width: 768px) {
+
+  .hero {
+    padding: 40px 20px 36px;
+  }
+
+  .hero-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .hero h1 {
+    font-size: 36px;
+  }
+
+  .hero-desc {
+    font-size: 15px;
+    max-width: 100%;
+  }
+
+  .stat-box {
+    width: 100%;
+    padding: 22px;
+  }
+
+  .stat-num {
+    font-size: 44px;
+  }
+
+  .notice {
+    padding: 12px 20px;
+    font-size: 12.5px;
+  }
+
+  .main {
+    padding: 36px 16px 60px;
+  }
+
+  /* HAVE GRID → 1 column */
+  .have-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* REQUEST GRID → 1 column */
+  .req-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .req-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .req-day-badge {
+    align-self: flex-start;
+  }
+
+  /* NEXT STEPS → vertical */
+  .steps-row {
+    grid-template-columns: 1fr;
+  }
+
+  .next-card {
+    padding: 28px 20px;
+  }
+
+  .next-title {
+    font-size: 22px;
+  }
+
+  .footer {
+    padding: 20px 12px;
+    font-size: 11px;
+  }
+}
 </style>
 </head>
 <body>
