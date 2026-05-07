@@ -3,110 +3,121 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>F&B Service Training Plan — 4 Days</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>F&B Service Training Plan</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+
   :root {
-    --navy: #0d1b2a;
-    --gold: #c9a84c;
-    --gold-light: #e8c97a;
-    --cream: #f5f0e8;
+    --bg: #f5f5f7;
     --white: #ffffff;
-    --teal: #1a7b8a;
-    --red: #c0392b;
-    --green: #1e7e4a;
-    --card-bg: #ffffff;
-    --shadow: 0 4px 24px rgba(13,27,42,0.10);
+    --black: #1d1d1f;
+    --gray1: #6e6e73;
+    --gray2: #aeaeb2;
+    --gray3: #e5e5ea;
+    --gray4: #f5f5f7;
+    --blue: #0071e3;
+    --blue-light: #e8f0fd;
+    --green: #34c759;
+    --green-light: #e8f8ed;
+    --orange: #ff9500;
+    --orange-light: #fff4e0;
+    --red: #ff3b30;
+    --red-light: #fff0ef;
+    --radius: 18px;
+    --radius-sm: 12px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--cream);
-    font-family: 'DM Sans', sans-serif;
-    color: var(--navy);
-    min-height: 100vh;
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* HEADER */
-  .header {
-    background: var(--navy);
-    color: var(--white);
-    padding: 56px 60px 40px;
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 80px 60px 72px;
     position: relative;
     overflow: hidden;
   }
-  .header::before {
+  .hero::after {
     content: '';
     position: absolute;
-    top: -60px; right: -60px;
-    width: 320px; height: 320px;
+    bottom: -120px; right: -80px;
+    width: 440px; height: 440px;
+    background: radial-gradient(circle, rgba(0,113,227,0.22) 0%, transparent 65%);
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(201,168,76,0.18) 0%, transparent 70%);
+    pointer-events: none;
   }
-  .header-tag {
-    display: inline-block;
-    border: 1.5px solid var(--gold);
-    color: var(--gold);
-    font-size: 11px;
+  .hero-eyebrow {
+    font-size: 13px;
     font-weight: 600;
-    letter-spacing: 3px;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
     text-transform: uppercase;
-    padding: 5px 16px;
-    border-radius: 2px;
-    margin-bottom: 22px;
   }
-  .header h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 900;
-    line-height: 1.1;
-    margin-bottom: 10px;
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: #f5f5f7;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
   }
-  .header h1 span { color: var(--gold); }
-  .header-sub {
-    font-size: 15px;
-    color: rgba(255,255,255,0.55);
-    font-weight: 300;
-    margin-bottom: 36px;
+  .hero h1 span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: #98989d;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.5;
   }
 
-  /* TIME LEGEND */
-  .time-legend {
+  /* SCHEDULE PILLS */
+  .schedule-row {
     display: flex;
-    gap: 24px;
+    gap: 10px;
     flex-wrap: wrap;
   }
-  .time-pill {
-    background: rgba(255,255,255,0.07);
-    border: 1px solid rgba(255,255,255,0.13);
-    border-radius: 40px;
-    padding: 8px 20px;
+  .schedule-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
     font-size: 13px;
-    color: var(--white);
+    color: #f5f5f7;
     display: flex;
     align-items: center;
     gap: 8px;
+    backdrop-filter: blur(8px);
   }
-  .time-pill .dot {
-    width: 8px; height: 8px; border-radius: 50%;
+  .pill-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
-  .dot-theory { background: var(--gold); }
-  .dot-break { background: #888; }
-  .dot-practice { background: var(--teal); }
 
   /* MAIN */
   .main {
-    max-width: 960px;
+    max-width: 900px;
     margin: 0 auto;
-    padding: 48px 32px 64px;
+    padding: 56px 24px 80px;
   }
 
-  /* STATUS LEGEND */
-  .status-legend {
+  /* LEGEND */
+  .legend {
     display: flex;
     gap: 20px;
-    margin-bottom: 40px;
+    margin-bottom: 48px;
     flex-wrap: wrap;
   }
   .legend-item {
@@ -114,567 +125,559 @@
     align-items: center;
     gap: 8px;
     font-size: 13px;
-    color: #555;
+    color: var(--gray1);
+    font-weight: 500;
   }
-  .legend-badge {
-    font-size: 15px;
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
   }
 
-  /* DAY BLOCK */
-  .day-block {
-    margin-bottom: 52px;
+  /* DAY SECTION */
+  .day-section {
+    margin-bottom: 56px;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
   }
   .day-label {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 24px;
-  }
-  .day-number {
-    font-family: 'Playfair Display', serif;
-    font-size: 56px;
-    font-weight: 900;
-    color: var(--navy);
-    line-height: 1;
-    opacity: 0.12;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray2);
   }
   .day-title {
-    font-family: 'Playfair Display', serif;
     font-size: 22px;
-    font-weight: 700;
-    color: var(--navy);
-  }
-  .day-divider {
-    width: 48px;
-    height: 3px;
-    background: var(--gold);
-    margin-bottom: 24px;
-    border-radius: 2px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.02em;
   }
 
-  /* SECTION CARDS */
-  .section-grid {
-    display: grid;
-    gap: 16px;
-  }
-
+  /* SESSION CARD */
   .session-card {
-    background: var(--card-bg);
-    border-radius: 14px;
-    box-shadow: var(--shadow);
+    background: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
     overflow: hidden;
-    display: flex;
-    border-left: 5px solid var(--navy);
-    transition: box-shadow 0.2s;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 110px 1fr;
   }
-  .session-card.theory { border-left-color: var(--gold); }
-  .session-card.practice { border-left-color: var(--teal); }
-  .session-card.lunch { border-left-color: #bbb; }
 
-  .session-time {
-    background: var(--navy);
-    color: var(--gold);
-    font-size: 12px;
-    font-weight: 700;
-    letter-spacing: 1px;
-    writing-mode: vertical-rl;
-    text-orientation: mixed;
-    transform: rotate(180deg);
-    padding: 16px 10px;
-    min-width: 52px;
+  .session-time-col {
+    padding: 24px 20px;
     display: flex;
-    align-items: center;
+    flex-direction: column;
     justify-content: center;
-    text-align: center;
+    border-right: 1px solid var(--gray3);
   }
-  .session-card.practice .session-time { background: var(--teal); color: #fff; }
-  .session-card.lunch .session-time { background: #bbb; color: #fff; }
+  .session-time {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.3;
+  }
+  .session-type-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+  .badge-theory { background: var(--blue-light); color: var(--blue); }
+  .badge-practice { background: var(--green-light); color: #248a3d; }
+  .badge-lunch { background: var(--gray3); color: var(--gray1); }
 
-  .session-body {
-    padding: 20px 24px;
-    flex: 1;
+  .session-content {
+    padding: 22px 24px;
   }
   .session-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 17px;
-    font-weight: 700;
-    margin-bottom: 4px;
-    color: var(--navy);
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 3px;
   }
   .session-subtitle {
     font-size: 13px;
-    color: #888;
-    margin-bottom: 14px;
+    color: var(--gray1);
+    margin-bottom: 16px;
+    line-height: 1.4;
   }
 
   /* STATUS ITEMS */
-  .status-list {
+  .status-stack {
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 8px;
   }
-  .status-item {
+  .status-row {
     display: flex;
     align-items: flex-start;
     gap: 10px;
-    font-size: 13.5px;
-    line-height: 1.4;
-    padding: 8px 12px;
-    border-radius: 8px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    line-height: 1.45;
   }
-  .status-item.available {
-    background: #edfaf3;
-    color: #1e7e4a;
-  }
-  .status-item.missing {
-    background: #fff5f5;
-    color: #c0392b;
-  }
-  .status-item.partial {
-    background: #fffbec;
-    color: #b07d00;
-  }
-  .status-icon { font-size: 15px; margin-top: 1px; flex-shrink: 0; }
-  .status-text strong { font-weight: 600; display: block; margin-bottom: 2px; }
-  .status-text span { font-size: 12px; opacity: 0.8; }
+  .status-row.ok { background: var(--green-light); }
+  .status-row.missing { background: var(--red-light); }
+  .status-row.partial { background: var(--orange-light); }
 
-  /* SUMMARY TABLE */
-  .summary-section {
-    margin-top: 56px;
-    background: var(--navy);
-    border-radius: 18px;
-    padding: 40px 40px 36px;
-    color: var(--white);
+  .status-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .status-main { font-weight: 600; color: var(--black); display: block; }
+  .status-sub { color: var(--gray1); font-size: 12px; margin-top: 2px; display: block; }
+
+  /* SUMMARY */
+  .summary-card {
+    background: var(--black);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-top: 24px;
   }
-  .summary-section h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    color: var(--gold);
-    margin-bottom: 8px;
-  }
-  .summary-section p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 28px;
-  }
-  .request-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 14px;
-  }
-  .request-card {
-    background: rgba(255,255,255,0.06);
-    border: 1px solid rgba(201,168,76,0.25);
-    border-radius: 10px;
-    padding: 16px 18px;
-    display: flex;
-    gap: 14px;
-    align-items: flex-start;
-  }
-  .req-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 900;
-    color: var(--gold);
-    opacity: 0.5;
-    line-height: 1;
-    min-width: 28px;
-  }
-  .req-info strong {
-    display: block;
-    font-size: 14px;
-    color: var(--white);
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .req-info span {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-  }
-  .req-day {
-    margin-left: auto;
-    background: rgba(201,168,76,0.15);
-    color: var(--gold-light);
+  .summary-eyebrow {
     font-size: 11px;
     font-weight: 700;
-    padding: 3px 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .summary-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .summary-sub {
+    font-size: 14px;
+    color: #6e6e73;
+    margin-bottom: 36px;
+  }
+
+  .request-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .request-item {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .req-index {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3a3a3c;
+    background: rgba(255,255,255,0.08);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .req-body strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f5f5f7;
+    margin-bottom: 2px;
+  }
+  .req-body span {
+    font-size: 12px;
+    color: #6e6e73;
+  }
+  .req-tag {
+    margin-left: auto;
+    font-size: 10px;
+    font-weight: 700;
+    color: var(--blue);
+    background: rgba(0,113,227,0.15);
+    padding: 3px 8px;
     border-radius: 20px;
     white-space: nowrap;
     align-self: flex-start;
+    flex-shrink: 0;
   }
 
-  /* FOOTER */
   .footer {
     text-align: center;
-    padding: 24px;
+    padding: 32px 24px;
     font-size: 12px;
-    color: #aaa;
-    border-top: 1px solid #e5e0d8;
-    margin-top: 48px;
+    color: var(--gray2);
+    border-top: 1px solid var(--gray3);
   }
 
   @media print {
-    body { background: #fff; }
     .session-card { break-inside: avoid; }
-    .day-block { break-inside: avoid; }
+    .day-section { break-inside: avoid; }
   }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-tag">Sea Chefs · Mein Schiff</div>
+<div class="hero">
+  <div class="hero-eyebrow">Sea Chefs · Mein Schiff · Restaurant Department</div>
   <h1>F&B Service<br><span>Training Plan</span></h1>
-  <div class="header-sub">4-Day Onboard Service Training · Materials Status Overview</div>
-  <div class="time-legend">
-    <div class="time-pill"><span class="dot dot-theory"></span> 09:00–12:00 Theory</div>
-    <div class="time-pill"><span class="dot dot-break"></span> 12:00–12:30 Lunch Break</div>
-    <div class="time-pill"><span class="dot dot-practice"></span> 12:30–16:00 Practice</div>
+  <div class="hero-sub">4-Day Onboard Service Training · Materials Status Overview</div>
+  <div class="schedule-row">
+    <div class="schedule-pill"><span class="pill-dot" style="background:#0071e3"></span>09:00 – 12:00 &nbsp;Theory</div>
+    <div class="schedule-pill"><span class="pill-dot" style="background:#aeaeb2"></span>12:00 – 12:30 &nbsp;Lunch Break</div>
+    <div class="schedule-pill"><span class="pill-dot" style="background:#34c759"></span>12:30 – 16:00 &nbsp;Practice</div>
   </div>
 </div>
 
 <div class="main">
 
-  <div class="status-legend">
-    <div class="legend-item"><span class="legend-badge">✅</span> Material available</div>
-    <div class="legend-item"><span class="legend-badge">⚠️</span> Partially available</div>
-    <div class="legend-item"><span class="legend-badge">❌</span> Missing — needs to be requested</div>
+  <div class="legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#34c759"></span>Material available</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#ff9500"></span>Partially available</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#ff3b30"></span>Missing — needs to be requested</div>
   </div>
 
   <!-- DAY 1 -->
-  <div class="day-block">
-    <div class="day-label">
-      <div class="day-number">01</div>
-      <div class="day-title">Company Introduction & F&B Overview</div>
+  <div class="day-section">
+    <div class="day-header">
+      <span class="day-label">Day 01</span>
+      <span class="day-title">Company Introduction & F&B Overview</span>
     </div>
-    <div class="day-divider"></div>
-    <div class="section-grid">
 
-      <div class="session-card theory">
-        <div class="session-time">09:00 – 10:00</div>
-        <div class="session-body">
-          <div class="session-title">Sea Chefs Presentation</div>
-          <div class="session-subtitle">Company Overview · Standards · Professional Conduct</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Presentation missing</strong><span>Sea Chefs company overview, values, org structure — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">09:00<br>10:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Sea Chefs Presentation</div>
+        <div class="session-subtitle">Company Overview · Standards · Professional Conduct</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Presentation missing</span><span class="status-sub">Company history, values, org structure — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card theory">
-        <div class="session-time">10:00 – 11:00</div>
-        <div class="session-body">
-          <div class="session-title">Mein Schiff Fleet Overview</div>
-          <div class="session-subtitle">Fleet concept · Ships · Brand standards</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Presentation missing</strong><span>General fleet introduction, ship categories, onboard concept — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">10:00<br>11:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Mein Schiff Fleet Overview</div>
+        <div class="session-subtitle">Fleet concept · Ships · Brand standards</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Presentation missing</span><span class="status-sub">General fleet intro, ship categories, onboard concept — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card theory">
-        <div class="session-time">11:00 – 12:00</div>
-        <div class="session-body">
-          <div class="session-title">Introduction to F&B Service</div>
-          <div class="session-subtitle">Types of service · Service flow · Guest approach · Communication</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Presentation missing</strong><span>Service types, guest communication standards — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">11:00<br>12:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Introduction to F&B Service</div>
+        <div class="session-subtitle">Types of service · Service flow · Guest approach · Communication</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Presentation missing</span><span class="status-sub">Service types, guest communication standards — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card practice">
-        <div class="session-time">12:30 – 16:00</div>
-        <div class="session-body">
-          <div class="session-title">Practice — Guest Greeting & Body Language</div>
-          <div class="session-subtitle">Greeting guests · Body language · Basic service steps</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Scripts & role-play scenarios missing</strong><span>Service scripts and training scenarios — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">12:30<br>16:00</div>
+        <span class="session-type-badge badge-practice">Practice</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Guest Greeting & Body Language</div>
+        <div class="session-subtitle">Greeting guests · Body language · Basic service steps</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Scripts & scenarios missing</span><span class="status-sub">Service scripts and training scenarios — needs to be requested</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- DAY 2 -->
-  <div class="day-block">
-    <div class="day-label">
-      <div class="day-number">02</div>
-      <div class="day-title">Restaurant & Bar Service</div>
+  <div class="day-section">
+    <div class="day-header">
+      <span class="day-label">Day 02</span>
+      <span class="day-title">Restaurant & Bar Service</span>
     </div>
-    <div class="day-divider"></div>
-    <div class="section-grid">
 
-      <div class="session-card theory">
-        <div class="session-time">09:00 – 10:30</div>
-        <div class="session-body">
-          <div class="session-title">Restaurant Service — Table Set Up</div>
-          <div class="session-subtitle">Service sequence · Table numbering · Order taking standards</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>Available: Table Set Up — Atlantik Restaurant</strong><span>Step-by-step setup · Lobster / cheese / steak special setups · Common mistakes</span></div>
-            </div>
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Restaurant floor plan / table numbering missing</strong><span>Seating layout and table map — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">09:00<br>10:30</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Restaurant Service — Table Set Up</div>
+        <div class="session-subtitle">Service sequence · Table numbering · Order taking standards</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">Available: Table Set Up — Atlantik Restaurant</span><span class="status-sub">Step-by-step setup · Lobster / cheese / steak · Common mistakes</span></div>
+          </div>
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Floor plan / table numbering missing</span><span class="status-sub">Seating layout and table map — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card theory">
-        <div class="session-time">10:30 – 12:00</div>
-        <div class="session-body">
-          <div class="session-title">Bar Service — F&B Outlets</div>
-          <div class="session-subtitle">Beverage knowledge · PAI concept · Bar overview</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>Available: Produkttraining F&B Outlets</strong><span>All bars · Deck locations · Opening hours · PAI vs premium · X-Bar, Diamant Bar, Ebbe & Flut, Saftwerft</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">10:30<br>12:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Bar Service — F&B Outlets</div>
+        <div class="session-subtitle">Beverage knowledge · PAI concept · Bar overview</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">Available: Produkttraining F&B Outlets</span><span class="status-sub">All bars · Decks · Hours · PAI vs premium · X-Bar, Diamant Bar, Ebbe & Flut, Saftwerft</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card practice">
-        <div class="session-time">12:30 – 16:00</div>
-        <div class="session-body">
-          <div class="session-title">Practice — Order Taking & Table Setup Simulation</div>
-          <div class="session-subtitle">Order simulation · Table set up practice · Role-play scenarios</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>Table setup material available</strong><span>Full step-by-step guide ready for practice</span></div>
-            </div>
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Order taking scripts missing</strong><span>Standard phrases and order flow — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">12:30<br>16:00</div>
+        <span class="session-type-badge badge-practice">Practice</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Order Taking & Table Setup Simulation</div>
+        <div class="session-subtitle">Order simulation · Table practice · Role-play scenarios</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">Table setup material available</span><span class="status-sub">Full step-by-step guide ready for practice</span></div>
+          </div>
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Order taking scripts missing</span><span class="status-sub">Standard phrases and order flow — needs to be requested</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- DAY 3 -->
-  <div class="day-block">
-    <div class="day-label">
-      <div class="day-number">03</div>
-      <div class="day-title">Allergies, Sanitation & Safety</div>
+  <div class="day-section">
+    <div class="day-header">
+      <span class="day-label">Day 03</span>
+      <span class="day-title">Allergies, Sanitation & Safety</span>
     </div>
-    <div class="day-divider"></div>
-    <div class="section-grid">
 
-      <div class="session-card theory">
-        <div class="session-time">09:00 – 10:30</div>
-        <div class="session-body">
-          <div class="session-title">Allergies & Dietary Restrictions</div>
-          <div class="session-subtitle">14 EU allergens · Symptoms · Kitchen communication · Responsibility</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>Available: Food Allergy & Intolerance Guideline</strong><span>Definitions · 14 allergens · Anaphylaxis · Histamine · High-risk cuisines · Knowledge check quiz</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">09:00<br>10:30</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Allergies & Dietary Restrictions</div>
+        <div class="session-subtitle">14 EU allergens · Symptoms · Kitchen communication</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">Available: Food Allergy & Intolerance Guideline</span><span class="status-sub">Definitions · 14 allergens · Anaphylaxis · Histamine · Quiz</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card theory">
-        <div class="session-time">10:30 – 11:15</div>
-        <div class="session-body">
-          <div class="session-title">Sanitation & PPM</div>
-          <div class="session-subtitle">Hygiene standards · Cleaning procedures · Cross-contamination prevention</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Presentation missing</strong><span>HACCP standards, PPM procedures, cleaning protocols — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">10:30<br>11:15</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Sanitation & PPM</div>
+        <div class="session-subtitle">Hygiene standards · Cleaning procedures · Cross-contamination</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Presentation missing</span><span class="status-sub">HACCP standards, PPM procedures, cleaning protocols — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card theory">
-        <div class="session-time">11:15 – 12:00</div>
-        <div class="session-body">
-          <div class="session-title">Personal Safety on Board</div>
-          <div class="session-subtitle">Workplace safety · Emergency procedures · Chain of command</div>
-          <div class="status-list">
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Presentation missing</strong><span>On-board safety protocols, emergency procedures — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">11:15<br>12:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Personal Safety on Board</div>
+        <div class="session-subtitle">Workplace safety · Emergency procedures · Chain of command</div>
+        <div class="status-stack">
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Presentation missing</span><span class="status-sub">On-board safety protocols, emergency procedures — needs to be requested</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card practice">
-        <div class="session-time">12:30 – 16:00</div>
-        <div class="session-body">
-          <div class="session-title">Practice — Allergy & Hygiene Scenarios</div>
-          <div class="session-subtitle">Allergy role-play · Hygiene simulation · Communication drills</div>
-          <div class="status-list">
-            <div class="status-item partial">
-              <span class="status-icon">⚠️</span>
-              <div class="status-text"><strong>Partially available</strong><span>Quiz questions from Allergy Guideline available, full role-play scenarios missing</span></div>
-            </div>
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Role-play scenarios missing</strong><span>Guest allergy situation scripts — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">12:30<br>16:00</div>
+        <span class="session-type-badge badge-practice">Practice</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Allergy & Hygiene Scenarios</div>
+        <div class="session-subtitle">Allergy role-play · Hygiene simulation · Communication drills</div>
+        <div class="status-stack">
+          <div class="status-row partial">
+            <span class="status-icon">◐</span>
+            <div><span class="status-main">Partially available</span><span class="status-sub">Quiz from Allergy Guideline available — full role-play scenarios still missing</span></div>
+          </div>
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Role-play scenarios missing</span><span class="status-sub">Guest allergy situation scripts — needs to be requested</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- DAY 4 -->
-  <div class="day-block">
-    <div class="day-label">
-      <div class="day-number">04</div>
-      <div class="day-title">Final Simulation & Assessment</div>
+  <div class="day-section">
+    <div class="day-header">
+      <span class="day-label">Day 04</span>
+      <span class="day-title">Final Simulation & Assessment</span>
     </div>
-    <div class="day-divider"></div>
-    <div class="section-grid">
 
-      <div class="session-card theory">
-        <div class="session-time">09:00 – 12:00</div>
-        <div class="session-body">
-          <div class="session-title">Full Recap — All Topics</div>
-          <div class="session-subtitle">Table Set Up · Bar Knowledge · Allergens · Safety · Service Standards</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>All available materials ready</strong><span>Table Set Up · F&B Outlets · Allergy Guideline</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">09:00<br>12:00</div>
+        <span class="session-type-badge badge-theory">Theory</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Full Recap — All Topics</div>
+        <div class="session-subtitle">Table Set Up · Bar Knowledge · Allergens · Safety · Service Standards</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">All available materials ready</span><span class="status-sub">Table Set Up · F&B Outlets · Allergy Guideline</span></div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="session-card practice">
-        <div class="session-time">12:30 – 16:00</div>
-        <div class="session-body">
-          <div class="session-title">Final General Simulation</div>
-          <div class="session-subtitle">Greeting → Order taking → Food & beverage service → Closing</div>
-          <div class="status-list">
-            <div class="status-item available">
-              <span class="status-icon">✅</span>
-              <div class="status-text"><strong>Simulation structure ready</strong><span>Based on existing materials</span></div>
-            </div>
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Final assessment checklist missing</strong><span>Scoring criteria and evaluation rubric — needs to be requested</span></div>
-            </div>
-            <div class="status-item missing">
-              <span class="status-icon">❌</span>
-              <div class="status-text"><strong>Feedback form missing</strong><span>Post-training feedback template — needs to be requested</span></div>
-            </div>
+    <div class="session-card">
+      <div class="session-time-col">
+        <div class="session-time">12:30<br>16:00</div>
+        <span class="session-type-badge badge-practice">Practice</span>
+      </div>
+      <div class="session-content">
+        <div class="session-title">Final General Simulation</div>
+        <div class="session-subtitle">Greeting → Order taking → Service → Closing</div>
+        <div class="status-stack">
+          <div class="status-row ok">
+            <span class="status-icon">✓</span>
+            <div><span class="status-main">Simulation structure ready</span><span class="status-sub">Based on all existing materials</span></div>
+          </div>
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Assessment checklist missing</span><span class="status-sub">Scoring criteria and evaluation rubric — needs to be requested</span></div>
+          </div>
+          <div class="status-row missing">
+            <span class="status-icon">✕</span>
+            <div><span class="status-main">Feedback form missing</span><span class="status-sub">Post-training feedback template — needs to be requested</span></div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
   <!-- SUMMARY -->
-  <div class="summary-section">
-    <h2>Materials to Request</h2>
-    <p>The following 10 documents are required to complete the full training program</p>
-    <div class="request-grid">
-      <div class="request-card">
-        <div class="req-num">01</div>
-        <div class="req-info">
-          <strong>Sea Chefs Company Presentation</strong>
-          <span>Overview, values, org structure</span>
-        </div>
-        <div class="req-day">Day 1</div>
+  <div class="summary-card">
+    <div class="summary-eyebrow">Action Required</div>
+    <div class="summary-title">10 Materials to Request</div>
+    <div class="summary-sub">The following documents are required to complete the full 4-day training program</div>
+    <div class="request-list">
+      <div class="request-item">
+        <div class="req-index">1</div>
+        <div class="req-body"><strong>Sea Chefs Company Presentation</strong><span>Overview, values, org structure</span></div>
+        <div class="req-tag">Day 1</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">02</div>
-        <div class="req-info">
-          <strong>Mein Schiff Fleet Overview</strong>
-          <span>Ships, concept, brand standards</span>
-        </div>
-        <div class="req-day">Day 1</div>
+      <div class="request-item">
+        <div class="req-index">2</div>
+        <div class="req-body"><strong>Mein Schiff Fleet Overview</strong><span>Ships, concept, brand standards</span></div>
+        <div class="req-tag">Day 1</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">03</div>
-        <div class="req-info">
-          <strong>Introduction to F&B Service</strong>
-          <span>Service types and flow</span>
-        </div>
-        <div class="req-day">Day 1</div>
+      <div class="request-item">
+        <div class="req-index">3</div>
+        <div class="req-body"><strong>Introduction to F&B Service</strong><span>Service types and flow</span></div>
+        <div class="req-tag">Day 1</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">04</div>
-        <div class="req-info">
-          <strong>Service Scripts</strong>
-          <span>Standard phrases, greeting, order taking</span>
-        </div>
-        <div class="req-day">Day 1–3</div>
+      <div class="request-item">
+        <div class="req-index">4</div>
+        <div class="req-body"><strong>Service Scripts & Standard Phrases</strong><span>Greeting, order taking, dialogue</span></div>
+        <div class="req-tag">Day 1–3</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">05</div>
-        <div class="req-info">
-          <strong>Restaurant Floor Plan</strong>
-          <span>Table layout and numbering</span>
-        </div>
-        <div class="req-day">Day 2</div>
+      <div class="request-item">
+        <div class="req-index">5</div>
+        <div class="req-body"><strong>Restaurant Floor Plan</strong><span>Table layout and numbering</span></div>
+        <div class="req-tag">Day 2</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">06</div>
-        <div class="req-info">
-          <strong>Sanitation & PPM Presentation</strong>
-          <span>HACCP, cleaning, hygiene</span>
-        </div>
-        <div class="req-day">Day 3</div>
+      <div class="request-item">
+        <div class="req-index">6</div>
+        <div class="req-body"><strong>Sanitation & PPM Presentation</strong><span>HACCP, cleaning, hygiene</span></div>
+        <div class="req-tag">Day 3</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">07</div>
-        <div class="req-info">
-          <strong>Personal Safety Presentation</strong>
-          <span>On-board safety, emergencies</span>
-        </div>
-        <div class="req-day">Day 3</div>
+      <div class="request-item">
+        <div class="req-index">7</div>
+        <div class="req-body"><strong>Personal Safety Presentation</strong><span>On-board safety, emergencies</span></div>
+        <div class="req-tag">Day 3</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">08</div>
-        <div class="req-info">
-          <strong>Role-play Scenarios</strong>
-          <span>Allergy, complaints, special requests</span>
-        </div>
-        <div class="req-day">Day 3</div>
+      <div class="request-item">
+        <div class="req-index">8</div>
+        <div class="req-body"><strong>Role-play Scenarios</strong><span>Allergy, complaints, special requests</span></div>
+        <div class="req-tag">Day 3</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">09</div>
-        <div class="req-info">
-          <strong>Final Assessment Checklist</strong>
-          <span>Scoring rubric, evaluation criteria</span>
-        </div>
-        <div class="req-day">Day 4</div>
+      <div class="request-item">
+        <div class="req-index">9</div>
+        <div class="req-body"><strong>Final Assessment Checklist</strong><span>Scoring rubric, evaluation criteria</span></div>
+        <div class="req-tag">Day 4</div>
       </div>
-      <div class="request-card">
-        <div class="req-num">10</div>
-        <div class="req-info">
-          <strong>Feedback Form</strong>
-          <span>Post-training evaluation template</span>
-        </div>
-        <div class="req-day">Day 4</div>
+      <div class="request-item">
+        <div class="req-index">10</div>
+        <div class="req-body"><strong>Post-Training Feedback Form</strong><span>Trainee & trainer evaluation</span></div>
+        <div class="req-tag">Day 4</div>
       </div>
     </div>
   </div>
@@ -682,7 +685,7 @@
 </div>
 
 <div class="footer">
-  Sea Chefs · Restaurant Department · Mein Schiff Service Training · F&B Training Program
+  Sea Chefs · Restaurant Department · Mein Schiff Service Training
 </div>
 
 </body>
