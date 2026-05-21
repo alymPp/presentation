@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sea Chefs — Company Presentation</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+  :root {
+    --bg: #f5f5f7;
+    --white: #ffffff;
+    --black: #1d1d1f;
+    --gray1: #6e6e73;
+    --gray2: #aeaeb2;
+    --gray3: #e5e5ea;
+    --gray4: #f5f5f7;
+    --blue: #0071e3;
+    --blue-light: #e8f0fd;
+    --green: #34c759;
+    --green-light: #e8f8ed;
+    --orange: #ff9500;
+    --orange-light: #fff4e0;
+    --red: #ff3b30;
+    --red-light: #fff0ef;
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Inter', 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,113,227,0.18) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(0,113,227,0.10) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 72px 24px 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: #f5f5f7;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: #98989d;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.5;
+    max-width: 560px;
+  }
+  .schedule-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .schedule-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: #f5f5f7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .pill-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* ── SECTION HEADER ── */
+  .section-header {
+    margin-bottom: 28px;
+  }
+  .section-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray2);
+    margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  /* ── BLOCK ── */
+  .block {
+    margin-bottom: 48px;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+  }
+
+  /* ── STAT ROW ── */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .stat-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .stat-num {
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: -0.03em;
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .stat-label {
+    font-size: 13px;
+    color: var(--gray1);
+    font-weight: 400;
+    line-height: 1.4;
+  }
+
+  /* ── OVERVIEW CARD ── */
+  .overview-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    font-size: 15px;
+    color: var(--gray1);
+    line-height: 1.7;
+    font-weight: 400;
+  }
+  .overview-card p + p { margin-top: 14px; }
+
+  /* ── TIMELINE ── */
+  .timeline-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .timeline-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    border-bottom: 1px solid var(--gray3);
+  }
+  .timeline-item:last-child { border-bottom: none; }
+  .timeline-year-col {
+    padding: 24px 20px;
+    border-right: 1px solid var(--gray3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+  }
+  .timeline-year {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--blue);
+    letter-spacing: -0.02em;
+  }
+  .timeline-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    background: var(--blue-light);
+    color: var(--blue);
+    width: fit-content;
+  }
+  .timeline-content {
+    padding: 24px 28px;
+  }
+  .timeline-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+  .timeline-text {
+    font-size: 13px;
+    color: var(--gray1);
+    line-height: 1.55;
+  }
+
+  /* ── VALUES GRID ── */
+  .values-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 12px;
+  }
+  .value-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .value-icon {
+    font-size: 28px;
+    margin-bottom: 14px;
+  }
+  .value-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .value-text {
+    font-size: 13px;
+    color: var(--gray1);
+    line-height: 1.6;
+  }
+
+  /* ── ORG ── */
+  .org-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .org-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .org-card-header {
+    padding: 16px 20px;
+    background: var(--bg);
+    border-bottom: 1px solid var(--gray3);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .org-card-icon { font-size: 18px; }
+  .org-card-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+  }
+  .org-roles {
+    padding: 16px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .org-role {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 13px;
+    color: var(--gray1);
+    padding: 6px 10px;
+    border-radius: var(--radius-sm);
+    background: var(--gray4);
+  }
+  .org-role-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--blue);
+    flex-shrink: 0;
+  }
+
+  /* ── HIERARCHY ── */
+  .hierarchy-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 28px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+  }
+  .hierarchy-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray2);
+    margin-bottom: 18px;
+  }
+  .hierarchy-levels {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .h-level {
+    display: flex;
+    gap: 8px;
+  }
+  .h-node {
+    flex: 1;
+    padding: 10px 16px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    font-weight: 500;
+    text-align: center;
+    border: 1px solid var(--gray3);
+    color: var(--black);
+    background: var(--gray4);
+  }
+  .h-node.top {
+    background: var(--blue);
+    color: white;
+    border-color: var(--blue);
+    font-weight: 600;
+  }
+  .h-node.mid {
+    background: var(--blue-light);
+    color: var(--blue);
+    border-color: rgba(0,113,227,0.2);
+  }
+  .h-connector {
+    height: 14px;
+    width: 1px;
+    background: var(--gray3);
+    margin: 0 auto -4px;
+  }
+
+  /* ── STANDARDS ── */
+  .standards-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+  }
+  .standard-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    border-bottom: 1px solid var(--gray3);
+  }
+  .standard-item:last-child { border-bottom: none; }
+  .standard-num-col {
+    padding: 24px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid var(--gray3);
+    background: var(--gray4);
+  }
+  .standard-num {
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--gray2);
+    letter-spacing: -0.02em;
+  }
+  .standard-content {
+    padding: 22px 24px;
+  }
+  .standard-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 4px;
+  }
+  .standard-text {
+    font-size: 13px;
+    color: var(--gray1);
+    line-height: 1.55;
+  }
+
+  /* ── CONDUCT ── */
+  .conduct-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .conduct-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .conduct-rule-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--black);
+    margin-bottom: 6px;
+    letter-spacing: -0.01em;
+  }
+  .conduct-rule-text {
+    font-size: 13px;
+    color: var(--gray1);
+    line-height: 1.55;
+  }
+  .conduct-tag {
+    display: inline-block;
+    margin-bottom: 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+  }
+  .tag-red { background: var(--red-light); color: var(--red); }
+  .tag-orange { background: var(--orange-light); color: var(--orange); }
+  .tag-blue { background: var(--blue-light); color: var(--blue); }
+  .tag-green { background: var(--green-light); color: #248a3d; }
+
+  /* conditions badge row */
+  .conditions-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .cond-pill {
+    background: var(--white);
+    border-radius: var(--radius-sm);
+    padding: 16px 14px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    text-align: center;
+  }
+  .cond-pill .cond-main {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--black);
+    display: block;
+    margin-bottom: 3px;
+  }
+  .cond-pill .cond-sub {
+    font-size: 11px;
+    color: var(--gray2);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+
+  /* ── SUMMARY DARK ── */
+  .summary-card {
+    background: var(--black);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-top: 8px;
+    position: relative;
+    overflow: hidden;
+  }
+  .summary-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -60px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(0,113,227,0.2) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .summary-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .summary-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+    line-height: 1.1;
+  }
+  .summary-title span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .summary-sub {
+    font-size: 14px;
+    color: #6e6e73;
+    margin-bottom: 36px;
+  }
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    position: relative; z-index: 1;
+  }
+  .summary-stat {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-sm);
+    padding: 20px;
+    text-align: center;
+  }
+  .summary-stat-num {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em;
+    display: block;
+    margin-bottom: 4px;
+  }
+  .summary-stat-label {
+    font-size: 12px;
+    color: #6e6e73;
+    font-weight: 400;
+  }
+
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    color: var(--gray2);
+    border-top: 1px solid var(--gray3);
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    /* HERO */
+    .hero-inner { padding: 48px 20px 56px; }
+    .hero h1 { font-size: 40px; }
+    .hero-sub { font-size: 15px; }
+    .schedule-row { flex-direction: column; gap: 8px; }
+    .schedule-pill { font-size: 13px; }
+
+    /* MAIN */
+    .main { padding: 36px 16px 60px; }
+    .section-title { font-size: 22px; }
+
+    /* STATS — 2 cols on mobile is fine, just fix sizing */
+    .stats-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+    .stat-card { padding: 20px 16px; }
+    .stat-num { font-size: 28px; }
+
+    /* TIMELINE */
+    .timeline-item { grid-template-columns: 72px 1fr; }
+    .timeline-year-col { padding: 18px 10px; }
+    .timeline-year { font-size: 18px; }
+    .timeline-content { padding: 18px 16px; }
+
+    /* VALUES — 1 col */
+    .values-grid { grid-template-columns: 1fr; gap: 10px; }
+    .value-card { padding: 22px 18px; }
+
+    /* ORG */
+    .org-grid { grid-template-columns: 1fr; gap: 10px; }
+    .hierarchy-card { padding: 20px 16px; }
+    .h-level { gap: 6px; }
+    .h-node { font-size: 12px; padding: 8px 10px; }
+
+    /* STANDARDS */
+    .standard-num-col { padding: 18px 12px; }
+    .standard-content { padding: 18px 16px; }
+
+    /* CONDUCT */
+    .conduct-grid { grid-template-columns: 1fr; gap: 10px; }
+    .conditions-grid { grid-template-columns: 1fr 1fr; gap: 8px; }
+
+    /* SUMMARY */
+    .summary-card { padding: 28px 20px; }
+    .summary-title { font-size: 26px; }
+    .summary-stats { grid-template-columns: 1fr; gap: 8px; }
+    .summary-stat { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Sea Chefs · Mein Schiff · HR & Recruitment</div>
+    <h1>Company<br><span>Presentation</span></h1>
+    <div class="hero-sub">Overview · History · Values · Organisational Structure · Professional Standards</div>
+    <div class="schedule-row">
+      <div class="schedule-pill"><span class="pill-dot" style="background:#0071e3"></span>Founded 1992 · Frankfurt, Germany</div>
+      <div class="schedule-pill"><span class="pill-dot" style="background:#34c759"></span>Marlow Group Subsidiary</div>
+      <div class="schedule-pill"><span class="pill-dot" style="background:#ff9500"></span>Global Maritime Hospitality</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── OVERVIEW ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Who We Are</div>
+      <div class="section-title">Company Overview</div>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">30+</div>
+        <div class="stat-label">Years of maritime excellence</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">15k+</div>
+        <div class="stat-label">Professionals placed annually</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">50+</div>
+        <div class="stat-label">Cruise ships under management</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">120+</div>
+        <div class="stat-label">Countries of crew origin</div>
+      </div>
+    </div>
+
+    <div class="overview-card">
+      <p>Sea Chefs is one of the world's leading cruise ship hotel management companies, headquartered in Frankfurt, Germany. As a subsidiary of the <strong>Marlow Group</strong>, we provide comprehensive hotel operations — culinary, restaurant service, housekeeping, and guest relations — across major international cruise lines.</p>
+      <p>We act as the bridge between top international hospitality talent and the world's premier cruise brands, including <strong>TUI Cruises Mein Schiff</strong>, Hapag-Lloyd Cruises, and Phoenix Reisen. Our mission is simple: deliver exceptional guest experiences at sea through professional, motivated, and well-trained crew.</p>
+    </div>
+  </div>
+
+  <!-- ── HISTORY ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Our Journey</div>
+      <div class="section-title">Company History</div>
+    </div>
+
+    <div class="timeline-card">
+      <div class="timeline-item">
+        <div class="timeline-year-col">
+          <div class="timeline-year">1992</div>
+          <div class="timeline-badge">Foundation</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Established in Frankfurt, Germany</div>
+          <div class="timeline-text">Sea Chefs is founded with the vision of professionalising hotel operations on cruise ships. First management contracts signed with European cruise lines.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year-col">
+          <div class="timeline-year">2001</div>
+          <div class="timeline-badge">Growth</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Marlow Group Partnership</div>
+          <div class="timeline-text">Integration with the Marlow Group strengthens global operations. Recruitment and placement programmes expanded across Mediterranean and Caribbean routes.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year-col">
+          <div class="timeline-year">2009</div>
+          <div class="timeline-badge">Milestone</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">TUI Cruises Partnership — Mein Schiff</div>
+          <div class="timeline-text">Sea Chefs becomes the hotel management partner for TUI Cruises' Mein Schiff fleet, a defining milestone that significantly expands our scale and standards.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year-col">
+          <div class="timeline-year">2012</div>
+          <div class="timeline-badge">Expansion</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Global Recruitment Network</div>
+          <div class="timeline-text">Sea Chefs becomes a top-tier European hotel management company. Active recruitment extended to over 100 countries, establishing a truly global talent pipeline.</div>
+        </div>
+      </div>
+      <div class="timeline-item">
+        <div class="timeline-year-col">
+          <div class="timeline-year">2024</div>
+          <div class="timeline-badge">Today</div>
+        </div>
+        <div class="timeline-content">
+          <div class="timeline-title">Leading Maritime Hospitality Company</div>
+          <div class="timeline-text">Managing 50+ vessels, placing 15,000+ professionals annually, operating across all major global cruise destinations on every ocean.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── VALUES ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">What Drives Us</div>
+      <div class="section-title">Core Values</div>
+    </div>
+
+    <div class="values-grid">
+      <div class="value-card">
+        <div class="value-icon">⚓</div>
+        <div class="value-title">Excellence</div>
+        <div class="value-text">Every service touchpoint — from cuisine to housekeeping — is held to the highest international standards. We do not settle for good enough.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🤝</div>
+        <div class="value-title">Integrity</div>
+        <div class="value-text">Transparent, honest relationships with clients, partners, and every crew member. We say what we mean and deliver what we promise.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🧭</div>
+        <div class="value-title">Reliability</div>
+        <div class="value-text">Ships sail on schedule. Our partners and guests depend on us — we deliver on our commitments on time, every time, on every ocean.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">🌍</div>
+        <div class="value-title">Respect</div>
+        <div class="value-text">Our crew comes from 120+ countries. We honour the backgrounds, cultures, and individual contributions of every team member aboard.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">♻️</div>
+        <div class="value-title">Sustainability</div>
+        <div class="value-text">Environmental responsibility is integrated into our operations, procurement, and waste management across all vessels we manage.</div>
+      </div>
+      <div class="value-card">
+        <div class="value-icon">📈</div>
+        <div class="value-title">Development</div>
+        <div class="value-text">We invest in our people. Continuous training, certification support, and clear career progression for every crew member at every level.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ORG STRUCTURE ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">How We're Organised</div>
+      <div class="section-title">Onboard Structure</div>
+    </div>
+
+    <div class="hierarchy-card">
+      <div class="hierarchy-label">Hotel Division — Chain of Command</div>
+      <div class="hierarchy-levels">
+        <div class="h-level"><div class="h-node top">Hotel Director</div></div>
+        <div class="h-connector"></div>
+        <div class="h-level">
+          <div class="h-node mid">F&B Manager</div>
+          <div class="h-node mid">Chief Purser</div>
+          <div class="h-node mid">Executive Chef</div>
+          <div class="h-node mid">Chief Housekeeper</div>
+        </div>
+        <div class="h-connector"></div>
+        <div class="h-level">
+          <div class="h-node">Supervisors & Senior Crew</div>
+          <div class="h-node">Junior Crew & Entry Level</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="org-grid">
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-icon">🍽️</div>
+          <div class="org-card-title">Food & Beverage</div>
+        </div>
+        <div class="org-roles">
+          <div class="org-role"><div class="org-role-dot"></div>Restaurant Manager</div>
+          <div class="org-role"><div class="org-role-dot"></div>Waiter / Busboy</div>
+          <div class="org-role"><div class="org-role-dot"></div>Bar Manager / Bartender</div>
+          <div class="org-role"><div class="org-role-dot"></div>Buffet Steward</div>
+        </div>
+      </div>
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-icon">👨‍🍳</div>
+          <div class="org-card-title">Galley (Kitchen)</div>
+        </div>
+        <div class="org-roles">
+          <div class="org-role"><div class="org-role-dot"></div>Executive Chef</div>
+          <div class="org-role"><div class="org-role-dot"></div>Sous Chef / Chef de Partie</div>
+          <div class="org-role"><div class="org-role-dot"></div>Pastry Chef</div>
+          <div class="org-role"><div class="org-role-dot"></div>Cook / Utility</div>
+        </div>
+      </div>
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-icon">🛏️</div>
+          <div class="org-card-title">Housekeeping</div>
+        </div>
+        <div class="org-roles">
+          <div class="org-role"><div class="org-role-dot"></div>Chief Housekeeper</div>
+          <div class="org-role"><div class="org-role-dot"></div>Cabin Steward/ess</div>
+          <div class="org-role"><div class="org-role-dot"></div>Laundry Supervisor</div>
+          <div class="org-role"><div class="org-role-dot"></div>Cleaner / Utility</div>
+        </div>
+      </div>
+      <div class="org-card">
+        <div class="org-card-header">
+          <div class="org-card-icon">📋</div>
+          <div class="org-card-title">Purser's Office</div>
+        </div>
+        <div class="org-roles">
+          <div class="org-role"><div class="org-role-dot"></div>Chief Purser</div>
+          <div class="org-role"><div class="org-role-dot"></div>Assistant Purser</div>
+          <div class="org-role"><div class="org-role-dot"></div>Guest Relations Officer</div>
+          <div class="org-role"><div class="org-role-dot"></div>Receptionist</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── STANDARDS ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">What Is Expected</div>
+      <div class="section-title">Onboard Standards</div>
+    </div>
+
+    <div class="standards-card">
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">01</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Uniform & Appearance</div>
+          <div class="standard-text">Full uniform must be worn at all times during working hours — clean, pressed, name badge visible. Hair neatly groomed. No strong perfume or jewellery beyond company policy.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">02</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Guest Service Standard</div>
+          <div class="standard-text">Every guest interaction must reflect warmth, professionalism, and attentiveness. The 10-5 rule applies: smile at 10 feet, greet at 5 feet. Complaints are opportunities to excel.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">03</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Food Safety & Hygiene (HACCP)</div>
+          <div class="standard-text">Strict HACCP protocols at all times. Handwashing frequency, temperature monitoring, allergen awareness, and cross-contamination prevention are non-negotiable.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">04</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Safety at Sea (STCW)</div>
+          <div class="standard-text">All crew must hold valid STCW certifications. Participation in muster drills is mandatory. All crew must know their station, lifeboat procedures, and fire response protocols.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">05</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Communication & Reporting</div>
+          <div class="standard-text">All incidents — safety, service, or personnel — must be reported through the correct chain of command immediately. Clear, honest communication is a core professional duty.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── PROFESSIONAL CONDUCT ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Life at Sea</div>
+      <div class="section-title">Professional Conduct</div>
+    </div>
+
+    <div class="conduct-grid">
+      <div class="conduct-card">
+        <div class="conduct-tag tag-red">Zero Tolerance</div>
+        <div class="conduct-rule-title">Alcohol & Substances</div>
+        <div class="conduct-rule-text">Alcohol and substance use during duty hours is strictly prohibited with zero exceptions. Off-duty consumption is subject to ship regulations and port-specific rules.</div>
+      </div>
+      <div class="conduct-card">
+        <div class="conduct-tag tag-orange">Required</div>
+        <div class="conduct-rule-title">Cabin Sharing</div>
+        <div class="conduct-rule-text">Shared cabins are standard. Respect for shared space, noise curfews (22:00–07:00), and personal boundaries is a condition of employment, not a request.</div>
+      </div>
+      <div class="conduct-card">
+        <div class="conduct-tag tag-blue">Policy</div>
+        <div class="conduct-rule-title">Social Media</div>
+        <div class="conduct-rule-text">Off-duty social media use is permitted but must never disclose guest information, vessel locations, internal operations, or any confidential company information.</div>
+      </div>
+      <div class="conduct-card">
+        <div class="conduct-tag tag-green">Good to Know</div>
+        <div class="conduct-rule-title">Contract Duration</div>
+        <div class="conduct-rule-text">Contracts typically run 4–9 months depending on position and vessel. Extensions are based on performance review and operational requirements at end of contract.</div>
+      </div>
+    </div>
+
+    <div class="conditions-grid">
+      <div class="cond-pill">
+        <span class="cond-main">6 days</span>
+        <span class="cond-sub">per week</span>
+      </div>
+      <div class="cond-pill">
+        <span class="cond-main">10 hrs</span>
+        <span class="cond-sub">per day</span>
+      </div>
+      <div class="cond-pill">
+        <span class="cond-main">Shared</span>
+        <span class="cond-sub">cabin</span>
+      </div>
+      <div class="cond-pill">
+        <span class="cond-main">Meals</span>
+        <span class="cond-sub">included</span>
+      </div>
+      <div class="cond-pill">
+        <span class="cond-main">Medical</span>
+        <span class="cond-sub">covered</span>
+      </div>
+      <div class="cond-pill">
+        <span class="cond-main">Port</span>
+        <span class="cond-sub">leaves</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUMMARY ── -->
+  <div class="summary-card">
+    <div class="summary-eyebrow">At a Glance</div>
+    <div class="summary-title">Sea Chefs —<br><span>Your Maritime Career</span></div>
+    <div class="summary-sub">Joining Sea Chefs means joining a global team of hospitality professionals dedicated to excellence at sea</div>
+    <div class="summary-stats">
+      <div class="summary-stat">
+        <span class="summary-stat-num">30+</span>
+        <span class="summary-stat-label">Years of experience</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-num">15,000+</span>
+        <span class="summary-stat-label">Crew placed per year</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-num">120+</span>
+        <span class="summary-stat-label">Nationalities on board</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Sea Chefs · Mein Schiff · Company Presentation · HR & Training Department
+</div>
+
+</body>
+</html>

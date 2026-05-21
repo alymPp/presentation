@@ -1,625 +1,781 @@
 <!DOCTYPE html>
-<html lang="ru">
+
+<html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Булева алгебра — Дискретная математика</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>F&amp;B Service Training Plan</title>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  @import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+  .content-btn {
+  margin-top: 12px;
+  display: inline-block;
+  background: var(--blue);
+  color: white;
+  text-decoration: none;
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.content-btn:hover {
+  opacity: 0.85;
+}
 
   :root {
-    --bg: #F5F2EC;
-    --ink: #1A1A1A;
-    --accent: #C8402B;
-    --soft: #E8E2D8;
-    --muted: #8A8070;
-    --mono: 'IBM Plex Mono', monospace;
-    --serif: 'Playfair Display', serif;
-    --sans: 'IBM Plex Sans', sans-serif;
+    --bg: #f5f5f7;
+    --white: #ffffff;
+    --black: #1d1d1f;
+    --gray1: #6e6e73;
+    --gray2: #aeaeb2;
+    --gray3: #e5e5ea;
+    --gray4: #f5f5f7;
+    --blue: #0071e3;
+    --blue-light: #e8f0fd;
+    --green: #34c759;
+    --green-light: #e8f8ed;
+    --orange: #ff9500;
+    --orange-light: #fff4e0;
+    --red: #ff3b30;
+    --red-light: #fff0ef;
+    --radius: 18px;
+    --radius-sm: 12px;
   }
 
-  html { scroll-behavior: smooth; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
+    font-family: -apple-system, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     background: var(--bg);
-    color: var(--ink);
-    font-family: var(--sans);
-    overflow-x: hidden;
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
   }
 
-  /* NAV DOTS */
-  .nav-dots {
-    position: fixed;
-    right: 2rem;
-    top: 50%;
-    transform: translateY(-50%);
+  header{
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  /* HERO */
+  .hero {
+    background: var(--black);
+    padding: 80px 60px 72px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 440px; height: 440px;
+    background: radial-gradient(circle, rgba(0,113,227,0.22) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.04em;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 56px;
+    font-weight: 700;
+    color: #f5f5f7;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 16px;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px;
+    color: #98989d;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.5;
+  }
+
+  /* SCHEDULE PILLS */
+  .schedule-row {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+  }
+  .schedule-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px;
+    color: #f5f5f7;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    backdrop-filter: blur(8px);
+  }
+  .pill-dot {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* MAIN */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+
+  /* LEGEND */
+  .legend {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 48px;
+    flex-wrap: wrap;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: var(--gray1);
+    font-weight: 500;
+  }
+  .legend-dot {
+    width: 8px; height: 8px; border-radius: 50%;
+  }
+
+  /* DAY SECTION */
+  .day-section {
+    margin-bottom: 56px;
+  }
+
+  .day-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+  .day-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--gray2);
+  }
+  .day-title {
+    font-size: 22px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.02em;
+  }
+
+  /* SESSION CARD */
+  .session-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    display: grid;
+    grid-template-columns: 110px 1fr;
+  }
+
+  .session-time-col {
+    padding: 24px 20px;
     display: flex;
     flex-direction: column;
-    gap: 10px;
-    z-index: 100;
+    justify-content: center;
+    border-right: 1px solid var(--gray3);
   }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--muted);
-    cursor: pointer;
-    transition: all .3s;
-    border: none;
-    padding: 0;
+  .session-time {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--black);
+    line-height: 1.3;
   }
-  .dot.active { background: var(--accent); transform: scale(1.4); }
+  .session-type-badge {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 6px;
+    margin-top: 8px;
+  }
+  .badge-theory { background: var(--blue-light); color: var(--blue); }
+  .badge-practice { background: var(--green-light); color: #248a3d; }
+  .badge-lunch { background: var(--gray3); color: var(--gray1); }
 
-  /* SLIDES */
-  .slide {
-    min-height: 100vh;
+  .session-content {
+    padding: 22px 24px;
+  }
+  .session-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--black);
+    letter-spacing: -0.01em;
+    margin-bottom: 3px;
+  }
+  .session-subtitle {
+    font-size: 13px;
+    color: var(--gray1);
+    margin-bottom: 16px;
+    line-height: 1.4;
+  }
+
+  /* STATUS ITEMS */
+  .status-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .status-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 10px 14px;
+    border-radius: var(--radius-sm);
+    font-size: 13px;
+    line-height: 1.45;
+  }
+  .status-row.ok { background: var(--green-light); }
+  .status-row.missing { background: var(--red-light); }
+  .status-row.partial { background: var(--orange-light); }
+
+  .status-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .status-main { font-weight: 600; color: var(--black); display: block; }
+  .status-sub { color: var(--gray1); font-size: 12px; margin-top: 2px; display: block; }
+
+  /* SUMMARY */
+  .summary-card {
+    background: var(--black);
+    border-radius: var(--radius);
+    padding: 48px;
+    margin-top: 24px;
+  }
+  .summary-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-bottom: 8px;
+  }
+  .summary-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+  }
+  .summary-sub {
+    font-size: 14px;
+    color: #6e6e73;
+    margin-bottom: 36px;
+  }
+
+  .request-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .request-item {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-sm);
+    padding: 16px 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+  .req-index {
+    font-size: 11px;
+    font-weight: 700;
+    color: #3a3a3c;
+    background: rgba(255,255,255,0.08);
+    width: 24px;
+    height: 24px;
+    border-radius: 6px;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4rem 6rem;
-    position: relative;
-    opacity: 0;
-    transform: translateY(40px);
-    transition: opacity .7s ease, transform .7s ease;
+    flex-shrink: 0;
+    margin-top: 1px;
   }
-  .slide.visible { opacity: 1; transform: translateY(0); }
-
-  .slide-inner {
-    max-width: 960px;
-    width: 100%;
+  .req-body strong {
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    color: #f5f5f7;
+    margin-bottom: 2px;
   }
-
-  /* SLIDE NUMBER */
-  .slide-num {
-    font-family: var(--mono);
-    font-size: .75rem;
-    color: var(--muted);
-    letter-spacing: .15em;
-    margin-bottom: 2rem;
+  .req-body span {
+    font-size: 12px;
+    color: #6e6e73;
   }
-
-  /* TYPOGRAPHY */
-  h1 {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 7vw, 6rem);
-    font-weight: 900;
-    line-height: 1;
-    letter-spacing: -.02em;
-  }
-  h2 {
-    font-family: var(--serif);
-    font-size: clamp(2rem, 4vw, 3.2rem);
+  .req-tag {
+    margin-left: auto;
+    font-size: 10px;
     font-weight: 700;
-    line-height: 1.1;
-    margin-bottom: 1.5rem;
-  }
-  h3 {
-    font-family: var(--mono);
-    font-size: .85rem;
-    font-weight: 500;
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: .6rem;
-  }
-  p {
-    font-size: 1.05rem;
-    line-height: 1.75;
-    color: #333;
-    font-weight: 300;
-    max-width: 640px;
+    color: var(--blue);
+    background: rgba(0,113,227,0.15);
+    padding: 3px 8px;
+    border-radius: 20px;
+    white-space: nowrap;
+    align-self: flex-start;
+    flex-shrink: 0;
   }
 
-  /* DIVIDER */
-  .rule { width: 48px; height: 2px; background: var(--accent); margin: 1.5rem 0; }
-
-  /* FORMULA BOX */
-  .formula {
-    font-family: var(--mono);
-    background: var(--soft);
-    border-left: 3px solid var(--accent);
-    padding: 1rem 1.5rem;
-    margin: 1.2rem 0;
-    font-size: 1rem;
-    line-height: 1.8;
-    border-radius: 0 4px 4px 0;
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px;
+    color: var(--gray2);
+    border-top: 1px solid var(--gray3);
   }
 
-  /* GRID */
-  .grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 2rem;
-    margin-top: 1.5rem;
+  @media print {
+    .session-card { break-inside: avoid; }
+    .day-section { break-inside: avoid; }
   }
-  .grid-3 {
+
+
+  /* TOP MENU */
+  .top-menu {
+    position: absolute;
+    top: 24px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 900px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    z-index: 2;
+  }
+  .menu-btn {
+    background: rgba(255,255,255,0.09);
+    border: 1px solid rgba(255,255,255,0.14);
+    color: #f5f5f7;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+    backdrop-filter: blur(8px);
+  }
+  .menu-btn:hover { background: rgba(255,255,255,0.16); }
+
+  .content-btn {
+    margin-top: 12px;
+    margin-bottom: 14px;
+    display: inline-block;
+    background: var(--blue);
+    color: white;
+    text-decoration: none;
+    padding: 9px 16px;
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 600;
+  }
+
+  .content-btn:hover { opacity: 0.85; }
+
+  .gallery-section {
+    margin-top: 56px;
+  }
+  .gallery-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    margin-top: 1.5rem;
+    gap: 12px;
+    margin-top: 20px;
   }
-
-  /* CARD */
-  .card {
-    background: var(--soft);
-    padding: 1.5rem;
-    border-radius: 8px;
-    border: 1px solid #DDD8CC;
-  }
-  .card h3 { margin-bottom: .4rem; }
-  .card p { font-size: .95rem; }
-
-  /* TABLE */
-  table {
-    border-collapse: collapse;
-    font-family: var(--mono);
-    font-size: .9rem;
-    margin-top: 1rem;
-  }
-  th {
-    background: var(--ink);
-    color: var(--bg);
-    padding: .5rem 1.2rem;
-    text-align: center;
-    font-weight: 500;
-    font-size: .8rem;
-    letter-spacing: .1em;
-  }
-  td {
-    border: 1px solid #DDD8CC;
-    padding: .5rem 1.2rem;
-    text-align: center;
-    background: var(--bg);
-  }
-  tr:nth-child(even) td { background: var(--soft); }
-
-  /* BIG NUMBER */
-  .big { font-family: var(--mono); font-size: 4rem; font-weight: 500; color: var(--accent); line-height: 1; }
-
-  /* TAG */
-  .tag {
-    display: inline-block;
-    background: var(--ink);
-    color: var(--bg);
-    font-family: var(--mono);
-    font-size: .7rem;
-    letter-spacing: .1em;
-    padding: .25rem .75rem;
-    border-radius: 2px;
-    margin-bottom: 1.2rem;
-  }
-
-  /* EXAMPLE BADGE */
-  .example-label {
-    font-family: var(--mono);
-    font-size: .7rem;
-    color: var(--accent);
-    letter-spacing: .12em;
-    text-transform: uppercase;
-    border: 1px solid var(--accent);
-    display: inline-block;
-    padding: .15rem .6rem;
-    margin-bottom: .5rem;
-    border-radius: 2px;
-  }
-
-  /* SLIDE 1 — COVER */
-  #slide-1 { background: var(--ink); }
-  #slide-1 h1 { color: var(--bg); }
-  #slide-1 p { color: #AAA; max-width: 540px; margin-top: 1.5rem; }
-  #slide-1 .rule { background: var(--accent); }
-  #slide-1 .slide-num { color: #555; }
-  .cover-sub {
-    font-family: var(--mono);
-    font-size: .85rem;
-    color: #666;
-    margin-top: 3rem;
-    letter-spacing: .1em;
-  }
-  .red { color: var(--accent); }
-
-  /* SLIDE separators */
-  .slide:not(#slide-1) { border-top: 1px solid #E0DACF; }
-
-  /* TIMELINE */
-  .timeline { margin-top: 1.5rem; }
-  .tl-item {
+  .gallery-item {
+    background: var(--white);
+    border-radius: var(--radius);
+    min-height: 180px;
     display: flex;
-    gap: 1.5rem;
-    margin-bottom: 1.2rem;
-    align-items: flex-start;
-  }
-  .tl-dot {
-    width: 10px; height: 10px;
-    background: var(--accent);
-    border-radius: 50%;
-    flex-shrink: 0;
-    margin-top: .4rem;
-  }
-
-  /* FOOTER */
-  .slide-footer {
-    position: absolute;
-    bottom: 2rem;
-    left: 6rem;
-    right: 6rem;
-    display: flex;
-    justify-content: space-between;
     align-items: center;
-    font-family: var(--mono);
-    font-size: .7rem;
-    color: var(--muted);
-    border-top: 1px solid #E0DACF;
-    padding-top: .8rem;
+    justify-content: center;
+    color: var(--gray1);
+    font-size: 13px;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    overflow: hidden;
   }
-  #slide-1 .slide-footer { border-top-color: #333; color: #444; }
-
-  /* GATE SYMBOL */
-  .gates { display: flex; gap: 2rem; margin-top: 1.5rem; flex-wrap: wrap; }
-  .gate-box {
-    background: var(--soft);
-    border: 1px solid #DDD8CC;
-    border-radius: 8px;
-    padding: 1.2rem 1.5rem;
-    text-align: center;
-    min-width: 140px;
-  }
-  .gate-sym {
-    font-family: var(--mono);
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--accent);
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
     display: block;
-    margin-bottom: .4rem;
-  }
-  .gate-name {
-    font-family: var(--mono);
-    font-size: .75rem;
-    letter-spacing: .1em;
-    text-transform: uppercase;
-    color: var(--muted);
   }
 
-  @media (max-width: 768px) {
-    .slide { padding: 3rem 1.5rem; }
-    .grid-2, .grid-3 { grid-template-columns: 1fr; }
-    .nav-dots { right: 1rem; }
-    .slide-footer { left: 1.5rem; right: 1.5rem; }
+  @media (max-width: 700px) {
+    .gallery-grid { grid-template-columns: 1fr; }
+    .top-menu { justify-content: center; }
   }
 </style>
 </head>
 <body>
+<div class="hero"><div class="top-menu"><a class="menu-btn" href="#gallery">Gallery</a></div>
+<header>
+<div class="hero-eyebrow">Sea Chefs · Mein Schiff · Restaurant Department</div>
+<h1>F&amp;B Service<br/><span>Training Plan</span></h1>
+<div class="hero-sub">4-Day Onboard Service Training · Materials Status Overview</div>
+<div class="schedule-row">
+<div class="schedule-pill"><span class="pill-dot" style="background:#0071e3"></span>09:00 – 12:00  Theory</div>
+<div class="schedule-pill"><span class="pill-dot" style="background:#aeaeb2"></span>12:00 – 12:30  Lunch Break</div>
+<div class="schedule-pill"><span class="pill-dot" style="background:#34c759"></span>12:30 – 16:00  Practice</div>
+</div>
+</header>
+</div>
+<div class="main">
+<div class="legend"><div class="legend-item"><span class="legend-dot" style="background:#34c759"></span>All materials available</div></div>
+<!-- DAY 1 -->
+<div class="day-section">
+<div class="day-header">
+<span class="day-label">Day 01</span>
+<span class="day-title">Company Introduction &amp; F&amp;B Overview</span>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">09:00<br/>10:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Sea Chefs Presentation</div>
+<div class="session-subtitle">Company Overview · Standards · Professional Conduct</div><a class="content-btn" href="/sea-chefs-presentation.html" target="_blank">View Content</a>
 
-<!-- NAV DOTS -->
-<nav class="nav-dots" id="navDots"></nav>
-
-<!-- ══════════════════ SLIDE 1 — COVER ══════════════════ -->
-<section class="slide" id="slide-1">
-  <div class="slide-inner">
-    <div class="slide-num">01 / 09</div>
-    <h1>Булева<br>алгебра<span class="red">.</span></h1>
-    <div class="rule"></div>
-    <p>Математика, без которой не было бы ни компьютеров, ни смартфонов, ни интернета. Всё начинается с двух чисел: <strong style="color:#fff">0</strong> и <strong style="color:var(--accent)">1</strong>.</p>
-    <div class="cover-sub">Дискретная математика · ПИ-1 23 · Урозматов Алымбек</div>
-  </div>
-  <div class="slide-footer">
-    <span>Дискретная математика</span>
-    <span>Булева алгебра</span>
-  </div>
-</section>
-
-<!-- ══════════════════ SLIDE 2 — ЧТО ТАКОЕ ══════════════════ -->
-<section class="slide" id="slide-2">
-  <div class="slide-inner">
-    <div class="slide-num">02 / 09</div>
-    <div class="tag">Основы</div>
-    <h2>Что такое булева алгебра?</h2>
-    <div class="rule"></div>
-    <p>Раздел математики, где переменные могут принимать только <strong>два значения</strong>: истина (<code style="font-family:var(--mono);color:var(--accent)">1</code>) или ложь (<code style="font-family:var(--mono);color:var(--accent)">0</code>). Названа в честь математика Джорджа Буля (1854 г.).</p>
-
-    <div class="grid-2" style="margin-top:2rem">
-      <div>
-        <div class="example-label">Пример из жизни</div>
-        <div class="formula">
-          Свет включён? → 1 (да)<br>
-          Свет выключен? → 0 (нет)<br><br>
-          Дверь закрыта? → 1<br>
-          Дверь открыта? → 0
-        </div>
-      </div>
-      <div>
-        <div class="example-label">Почему важно</div>
-        <div class="formula">
-          Процессор компьютера<br>
-          выполняет миллиарды<br>
-          таких операций в секунду.<br><br>
-          Всё — только 0 и 1.
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>02 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 3 — ОСНОВНЫЕ ОПЕРАЦИИ ══════════════════ -->
-<section class="slide" id="slide-3">
-  <div class="slide-inner">
-    <div class="slide-num">03 / 09</div>
-    <div class="tag">Операции</div>
-    <h2>Три базовые операции</h2>
-    <div class="rule"></div>
-
-    <div class="grid-3">
-      <div class="card">
-        <h3>AND · Конъюнкция</h3>
-        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">A ∧ B</div>
-        <p>"И" — результат 1, только если <strong>оба</strong> условия верны.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
-          0 ∧ 0 = 0<br>
-          1 ∧ 0 = 0<br>
-          1 ∧ 1 = <strong>1</strong>
-        </div>
-      </div>
-      <div class="card">
-        <h3>OR · Дизъюнкция</h3>
-        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">A ∨ B</div>
-        <p>"ИЛИ" — результат 1, если <strong>хотя бы одно</strong> условие верно.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
-          0 ∨ 0 = 0<br>
-          1 ∨ 0 = <strong>1</strong><br>
-          1 ∨ 1 = <strong>1</strong>
-        </div>
-      </div>
-      <div class="card">
-        <h3>NOT · Отрицание</h3>
-        <div style="font-family:var(--mono);font-size:1.6rem;color:var(--accent);margin:.5rem 0">¬A</div>
-        <p>"НЕ" — инвертирует значение: из 1 делает 0, и наоборот.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">
-          ¬0 = <strong>1</strong><br>
-          ¬1 = <strong>0</strong>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>03 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 4 — ПРИМЕР ИЗ ЖИЗНИ ══════════════════ -->
-<section class="slide" id="slide-4">
-  <div class="slide-inner">
-    <div class="slide-num">04 / 09</div>
-    <div class="tag">Жизненный пример</div>
-    <h2>Кофе утром: логика в быту</h2>
-    <div class="rule"></div>
-    <p>Вы встаёте и думаете: «Выпью ли я кофе?» Переведём это на булеву алгебру.</p>
-
-    <div class="formula" style="margin-top:1.5rem;font-size:1rem">
-      A = «есть кофе дома»<br>
-      B = «есть время»<br><br>
-      Пью кофе = A <strong>∧</strong> B<br>
-      (только если есть И кофе, И время)<br><br>
-      Беру кофе в кофейне = <strong>¬</strong>A <strong>∧</strong> B<br>
-      (нет кофе дома, но время есть)
-    </div>
-
-    <div class="example-label" style="margin-top:1.5rem">Вывод</div>
-    <p>Наш мозг постоянно решает булевы задачи — математика просто даёт им точный язык.</p>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>04 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 5 — ТАБЛИЦА ИСТИННОСТИ ══════════════════ -->
-<section class="slide" id="slide-5">
-  <div class="slide-inner">
-    <div class="slide-num">05 / 09</div>
-    <div class="tag">Таблицы истинности</div>
-    <h2>Таблица истинности</h2>
-    <div class="rule"></div>
-    <p>Способ перечислить все возможные комбинации входных значений и соответствующие результаты. Для <em>n</em> переменных — <strong>2ⁿ</strong> строк.</p>
-
-    <div class="grid-2" style="margin-top:1.5rem;align-items:start">
-      <div>
-        <div class="example-label">A ∧ B (AND)</div>
-        <table>
-          <tr><th>A</th><th>B</th><th>A ∧ B</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td>0</td></tr>
-          <tr><td>1</td><td>0</td><td>0</td></tr>
-          <tr><td>1</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
-        </table>
-      </div>
-      <div>
-        <div class="example-label">A ∨ B (OR)</div>
-        <table>
-          <tr><th>A</th><th>B</th><th>A ∨ B</th></tr>
-          <tr><td>0</td><td>0</td><td>0</td></tr>
-          <tr><td>0</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
-          <tr><td>1</td><td>0</td><td style="color:var(--accent);font-weight:700">1</td></tr>
-          <tr><td>1</td><td>1</td><td style="color:var(--accent);font-weight:700">1</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>05 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 6 — ДОПОЛНИТЕЛЬНЫЕ ФУНКЦИИ ══════════════════ -->
-<section class="slide" id="slide-6">
-  <div class="slide-inner">
-    <div class="slide-num">06 / 09</div>
-    <div class="tag">Производные функции</div>
-    <h2>Другие булевы функции</h2>
-    <div class="rule"></div>
-
-    <div class="grid-2">
-      <div class="card">
-        <h3>XOR · Исключающее ИЛИ</h3>
-        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">A ⊕ B</div>
-        <p>Равно 1, только если значения <strong>разные</strong>.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0⊕0=0 · 1⊕0=1 · 1⊕1=0</div>
-        <div class="example-label" style="margin-top:.8rem">Пример</div>
-        <p style="font-size:.9rem">«Либо чай, либо кофе — но не оба сразу»</p>
-      </div>
-      <div class="card">
-        <h3>NAND · НЕ-И</h3>
-        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">¬(A ∧ B)</div>
-        <p>Инверсия AND. Равно 0 лишь когда оба равны 1.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→1 · 1·1→0</div>
-        <div class="example-label" style="margin-top:.8rem">Интересный факт</div>
-        <p style="font-size:.9rem">Только из NAND можно собрать любую логику!</p>
-      </div>
-      <div class="card">
-        <h3>NOR · НЕ-ИЛИ</h3>
-        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">¬(A ∨ B)</div>
-        <p>Инверсия OR. Равно 1 только когда оба 0.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→0 · 1·1→0</div>
-      </div>
-      <div class="card">
-        <h3>XNOR · Эквивалентность</h3>
-        <div style="font-family:var(--mono);font-size:1.3rem;color:var(--accent);margin:.4rem 0">A ↔ B</div>
-        <p>Равно 1, если значения <strong>одинаковые</strong>.</p>
-        <div class="formula" style="margin-top:.8rem;font-size:.85rem">0·0→1 · 1·0→0 · 1·1→1</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>06 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 7 — ЗАКОНЫ ══════════════════ -->
-<section class="slide" id="slide-7">
-  <div class="slide-inner">
-    <div class="slide-num">07 / 09</div>
-    <div class="tag">Законы</div>
-    <h2>Основные законы булевой алгебры</h2>
-    <div class="rule"></div>
-
-    <div class="grid-2">
-      <div>
-        <h3>Идемпотентность</h3>
-        <div class="formula">A ∧ A = A<br>A ∨ A = A</div>
-        <p style="font-size:.9rem">«Включить включённый свет — он всё равно включён»</p>
-
-        <h3 style="margin-top:1.2rem">Закон де Моргана</h3>
-        <div class="formula">¬(A ∧ B) = ¬A ∨ ¬B<br>¬(A ∨ B) = ¬A ∧ ¬B</div>
-        <p style="font-size:.9rem">Отрицание суммы = произведение отрицаний</p>
-      </div>
-      <div>
-        <h3>Дистрибутивность</h3>
-        <div class="formula">A ∧ (B ∨ C) =<br>(A ∧ B) ∨ (A ∧ C)</div>
-
-        <h3 style="margin-top:1.2rem">Поглощение</h3>
-        <div class="formula">A ∨ (A ∧ B) = A<br>A ∧ (A ∨ B) = A</div>
-        <p style="font-size:.9rem">«Если условие уже включает другое — оно поглощает его»</p>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>07 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 8 — ПРИМЕНЕНИЕ ══════════════════ -->
-<section class="slide" id="slide-8">
-  <div class="slide-inner">
-    <div class="slide-num">08 / 09</div>
-    <div class="tag">Применение</div>
-    <h2>Где всё это используется?</h2>
-    <div class="rule"></div>
-
-    <div class="grid-3">
-      <div class="card" style="border-top:3px solid var(--accent)">
-        <h3>Процессоры</h3>
-        <p>Каждый транзистор в чипе — это булев элемент. Миллиарды переключений в секунду.</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--accent)">
-        <h3>Поиск</h3>
-        <p>Google: «кофе AND Бишкек NOT дорого» — это дословно булев запрос.</p>
-      </div>
-      <div class="card" style="border-top:3px solid var(--accent)">
-        <h3>Программирование</h3>
-        <p>if (авторизован AND подписка) — каждое условие в коде это булева функция.</p>
-      </div>
-      <div class="card" style="border-top:3px solid #888">
-        <h3>Базы данных</h3>
-        <p>SQL-запросы WHERE используют AND, OR, NOT для фильтрации данных.</p>
-      </div>
-      <div class="card" style="border-top:3px solid #888">
-        <h3>Электроника</h3>
-        <p>Светофоры, лифты, сигнализации — вся логика работы на булевых схемах.</p>
-      </div>
-      <div class="card" style="border-top:3px solid #888">
-        <h3>ИИ</h3>
-        <p>Нейросети — миллионы логических операций, собранных в граф вычислений.</p>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>08 / 09</span></div>
-</section>
-
-<!-- ══════════════════ SLIDE 9 — ИТОГ ══════════════════ -->
-<section class="slide" id="slide-9">
-  <div class="slide-inner">
-    <div class="slide-num">09 / 09</div>
-    <div class="tag">Итог</div>
-    <h2>Два числа,<br>изменившие мир</h2>
-    <div class="rule"></div>
-
-    <div style="display:flex;gap:3rem;align-items:center;margin-top:1rem;flex-wrap:wrap">
-      <div>
-        <div class="big">0</div>
-        <div class="big" style="color:var(--ink)">1</div>
-      </div>
-      <div>
-        <p>Булева алгебра — это универсальный язык логики. Из всего двух значений и трёх операций вырастает вся вычислительная математика.</p>
-        <div class="formula" style="margin-top:1rem">
-          AND · OR · NOT<br>
-          → XOR · NAND · NOR<br>
-          → Процессоры · Программы · ИИ
-        </div>
-      </div>
-    </div>
-
-    <div style="margin-top:2rem;padding-top:1.5rem;border-top:1px solid #E0DACF;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem">
-      <div>
-        <div style="font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.3rem">АВТОР</div>
-        <div style="font-family:var(--serif);font-size:1.2rem;font-weight:700">Урозматов Алымбек</div>
-        <div style="font-family:var(--mono);font-size:.8rem;color:var(--muted)">ПИ-1 23 · Дискретная математика</div>
-      </div>
-      <div style="text-align:right">
-        <div style="font-family:var(--mono);font-size:.75rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.3rem">ТЕМА</div>
-        <div style="font-family:var(--serif);font-size:1.1rem;font-weight:700">Булева алгебра</div>
-        <div style="font-family:var(--mono);font-size:.8rem;color:var(--muted)">и булевы функции</div>
-      </div>
-    </div>
-  </div>
-  <div class="slide-footer"><span>Урозматов Алымбек · ПИ-1 23</span><span>09 / 09</span></div>
-</section>
-
-<script>
-  const slides = document.querySelectorAll('.slide');
-  const nav = document.getElementById('navDots');
-
-  // Build dots
-  slides.forEach((_, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'dot';
-    btn.title = `Слайд ${i+1}`;
-    btn.onclick = () => slides[i].scrollIntoView({ behavior: 'smooth' });
-    nav.appendChild(btn);
-  });
-
-  const dots = nav.querySelectorAll('.dot');
-
-  // Intersection observer
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('visible');
-        const idx = [...slides].indexOf(entry.target);
-        dots.forEach((d,i) => d.classList.toggle('active', i === idx));
-      }
-    });
-  }, { threshold: 0.3 });
-
-  slides.forEach(s => observer.observe(s));
-</script>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Training material ready</span><span class="status-sub">All required content is available and ready to use during training</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">10:00<br/>11:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Mein Schiff Fleet Overview</div>
+<div class="session-subtitle">Fleet concept · Ships · Brand standards</div><a class="content-btn" href="mein-schiff-with-photos-routes.html" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Training material ready</span><span class="status-sub">All required content is available and ready to use during training</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">11:00<br/>12:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Introduction to F&amp;B Service</div>
+<div class="session-subtitle">Types of service · Service flow · Guest approach · Communication</div><a class="content-btn" href="pdfs/introduction-to-fb-service.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Training material ready</span><span class="status-sub">All required content is available and ready to use during training</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">12:30<br/>16:00</div>
+<span class="session-type-badge badge-practice">Practice</span>
+</div>
+<div class="session-content">
+<div class="session-title">Guest Greeting &amp; Body Language</div>
+<div class="session-subtitle">Greeting guests · Body language · Basic service steps</div><a class="content-btn" href="pdfs/guest-greeting-body-language.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div>
+<span class="status-main">Available: Service Scripts &amp; Training Scenarios</span>
+<span class="status-sub">Guest greeting · Body language · Standard phrases · Service dialogue</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DAY 2 -->
+<div class="day-section">
+<div class="day-header">
+<span class="day-label">Day 02</span>
+<span class="day-title">Restaurant &amp; Bar Service</span>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">09:00<br/>10:30</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Restaurant Service — Table Set Up</div>
+<div class="session-subtitle">Service sequence · Table numbering · Order taking standards</div><a class="content-btn" href="pdfs/restaurant-service-table-set-up.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Table Set Up — Atlantik Restaurant</span><span class="status-sub">Step-by-step setup · Lobster / cheese / steak · Common mistakes</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">10:30<br/>12:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Bar Service — F&amp;B Outlets</div>
+<div class="session-subtitle">Beverage knowledge · PAI concept · Bar overview</div><a class="content-btn" href="pdfs/bar-service-fb-outlets.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Produkttraining F&amp;B Outlets</span><span class="status-sub">All bars · Decks · Hours · PAI vs premium · X-Bar, Diamant Bar, Ebbe &amp; Flut, Saftwerft</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">12:30<br/>16:00</div>
+<span class="session-type-badge badge-practice">Practice</span>
+</div>
+<div class="session-content">
+<div class="session-title">Order Taking &amp; Table Setup Simulation</div>
+<div class="session-subtitle">Order simulation · Table practice · Role-play scenarios</div><a class="content-btn" href="pdfs/order-taking-table-setup-simulation.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Table setup material available</span><span class="status-sub">Full step-by-step guide ready for practice</span></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DAY 3 -->
+<div class="day-section">
+<div class="day-header">
+<span class="day-label">Day 03</span>
+<span class="day-title">Allergies, Sanitation &amp; Safety</span>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">09:00<br/>10:30</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Allergies &amp; Dietary Restrictions</div>
+<div class="session-subtitle">14 EU allergens · Symptoms · Kitchen communication</div><a class="content-btn" href="pdfs/allergies-dietary-restrictions.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Food Allergy &amp; Intolerance Guideline</span><span class="status-sub">Definitions · 14 allergens · Anaphylaxis · Histamine · Quiz</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">10:30<br/>11:15</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Sanitation &amp; PPM</div>
+<div class="session-subtitle">Hygiene standards · Cleaning procedures · Cross-contamination</div><a class="content-btn" href="pdfs/sanitation-and-ppm.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Training material ready</span><span class="status-sub">All required content is available and ready to use during training</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">11:15<br/>12:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Personal Safety on Board</div>
+<div class="session-subtitle">Workplace safety · Emergency procedures · Chain of command</div><a class="content-btn" href="pdfs/personal-safety-on-board.pdf" target="_blank">View PDF Content</a>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div>
+<span class="status-main">Available: On-Board Safety &amp; Emergency Procedures</span>
+<span class="status-sub">Workplace safety · Emergency response · Chain of command · Reporting</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">12:30<br/>16:00</div>
+<span class="session-type-badge badge-practice">Practice</span>
+</div>
+<div class="session-content">
+<div class="session-title">Allergy &amp; Hygiene Scenarios</div>
+<div class="session-subtitle">Allergy role-play · Hygiene simulation · Communication drills</div>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Available: Training material ready</span><span class="status-sub">All required content is available and ready to use during training</span></div>
+</div>
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div>
+<span class="status-main">Available: Role-Play Service Scenarios</span>
+<span class="status-sub">Guest allergy case · Complaint handling · Special dietary requests · Rush-hour situation</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- DAY 4 -->
+<div class="day-section">
+<div class="day-header">
+<span class="day-label">Day 04</span>
+<span class="day-title">Final Simulation &amp; Assessment</span>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">09:00<br/>12:00</div>
+<span class="session-type-badge badge-theory">Theory</span>
+</div>
+<div class="session-content">
+<div class="session-title">Full Recap — All Topics</div>
+<div class="session-subtitle">Table Set Up · Bar Knowledge · Allergens · Safety · Service Standards</div>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">All available materials ready</span><span class="status-sub">Table Set Up · F&amp;B Outlets · Allergy Guideline</span></div>
+</div>
+</div>
+</div>
+</div>
+<div class="session-card">
+<div class="session-time-col">
+<div class="session-time">12:30<br/>16:00</div>
+<span class="session-type-badge badge-practice">Practice</span>
+</div>
+<div class="session-content">
+<div class="session-title">Final General Simulation</div>
+<div class="session-subtitle">Greeting → Order taking → Service → Closing</div>
+<div class="status-stack">
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div><span class="status-main">Simulation structure ready</span><span class="status-sub">Based on all existing materials</span></div>
+</div>
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div>
+<span class="status-main">Available: Final Assessment Checklist</span>
+<span class="status-sub">Scoring criteria · Evaluation rubric · Trainer observation sheet · Pass/Fail standards</span>
+</div>
+</div>
+<div class="status-row ok">
+<span class="status-icon">✓</span>
+<div>
+<span class="status-main">Available: Post-Training Feedback Form</span>
+<span class="status-sub">Trainee self-evaluation · Trainer feedback template · Program improvement notes</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- SUMMARY -->
+<div class="gallery-section" id="gallery">
+  <div class="day-header"><span class="day-label">Gallery</span><span class="day-title">Training Process Gallery</span></div><div class="session-subtitle">Add photos from the training process here.</div>
+  
+  <div class="gallery-grid">
+    <div class="gallery-item"><img src="./images/image copy 2.png" alt=""></div>
+    <div class="gallery-item"><img src="./images/image copy.png" alt=""></div>
+    <div class="gallery-item"><img src="./images/image.png" alt=""></div>
+    <div class="gallery-item"><img src="./images/image copy 3.png" alt=""></div>
+    <div class="gallery-item"><img src="./images/image 31.png" alt=""></div>
+    <div class="gallery-item"><img src="./images/image copy 4.png" alt=""></div>
+  </div></div><div class="summary-card">
+<div class="summary-eyebrow">Ready to Use</div>
+<div class="summary-title">All Training Materials Available</div>
+<div class="summary-sub">PDF materials are connected to each subject and can be opened directly from the website.</div>
+<div class="request-list">
+<div class="request-item">
+<div class="req-index">1</div>
+<div class="req-body"><strong>Sea Chefs Company Presentation</strong><span>Overview, values, org structure</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">2</div>
+<div class="req-body"><strong>Mein Schiff Fleet Overview</strong><span>Ships, concept, brand standards</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">3</div>
+<div class="req-body"><strong>Introduction to F&amp;B Service</strong><span>Service types and flow</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">4</div>
+<div class="req-body"><strong>Service Scripts &amp; Standard Phrases</strong><span>Greeting, order taking, dialogue</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">5</div>
+<div class="req-body"><strong>Restaurant Floor Plan</strong><span>Table layout and numbering</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">6</div>
+<div class="req-body"><strong>Sanitation &amp; PPM Presentation</strong><span>HACCP, cleaning, hygiene</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">7</div>
+<div class="req-body"><strong>Personal Safety Presentation</strong><span>On-board safety, emergencies</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">8</div>
+<div class="req-body"><strong>Role-play Scenarios</strong><span>Allergy, complaints, special requests</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">9</div>
+<div class="req-body"><strong>Final Assessment Checklist</strong><span>Scoring rubric, evaluation criteria</span></div>
+<div class="req-tag">Ready</div>
+</div>
+<div class="request-item">
+<div class="req-index">10</div>
+<div class="req-body"><strong>Post-Training Feedback Form</strong><span>Trainee &amp; trainer evaluation</span></div>
+<div class="req-tag">Ready</div>
+</div>
+</div>
+</div>
+</div>
+<div class="footer">
+  Sea Chefs · Restaurant Department · Mein Schiff Service Training
+</div>
 </body>
 </html>

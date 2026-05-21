@@ -1,0 +1,1011 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mein Schiff Fleet Overview</title>
+<style>
+  :root {
+    --bg: #f5f5f7;
+    --white: #ffffff;
+    --black: #1d1d1f;
+    --gray1: #6e6e73;
+    --gray2: #aeaeb2;
+    --gray3: #e5e5ea;
+    --gray4: #f5f5f7;
+    --blue: #0071e3;
+    --blue-light: #e8f0fd;
+    --green: #34c759;
+    --green-light: #e8f8ed;
+    --orange: #ff9500;
+    --orange-light: #fff4e0;
+    --red: #ff3b30;
+    --red-light: #fff0ef;
+    --radius: 18px;
+    --radius-sm: 12px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, 'Helvetica Neue', sans-serif;
+    background: var(--bg);
+    color: var(--black);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--black);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::after {
+    content: '';
+    position: absolute;
+    bottom: -120px; right: -80px;
+    width: 500px; height: 500px;
+    background: radial-gradient(circle, rgba(0,113,227,0.18) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 300px; height: 300px;
+    background: radial-gradient(circle, rgba(0,113,227,0.10) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .hero-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 72px 24px 80px;
+    position: relative; z-index: 1;
+  }
+  .hero-eyebrow {
+    font-size: 13px; font-weight: 600;
+    color: var(--blue);
+    letter-spacing: 0.06em;
+    margin-bottom: 18px;
+    text-transform: uppercase;
+  }
+  .hero h1 {
+    font-size: 56px; font-weight: 700;
+    color: #f5f5f7;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 18px;
+  }
+  .hero h1 span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 17px; color: #98989d;
+    font-weight: 400;
+    margin-bottom: 40px;
+    line-height: 1.5;
+    max-width: 560px;
+  }
+  .schedule-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  .schedule-pill {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 100px;
+    padding: 8px 18px;
+    font-size: 13px; color: #f5f5f7;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .pill-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── MAIN ── */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 56px 24px 80px;
+  }
+  .block { margin-bottom: 52px; }
+  .section-header { margin-bottom: 24px; }
+  .section-eyebrow {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--gray2); margin-bottom: 6px;
+  }
+  .section-title {
+    font-size: 26px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.02em;
+  }
+
+  /* ── CONCEPT CARD ── */
+  .concept-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 36px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+    font-size: 15px; color: var(--gray1);
+    line-height: 1.7;
+  }
+  .concept-card p + p { margin-top: 14px; }
+  .concept-card strong { color: var(--black); }
+
+  /* ── PAI HIGHLIGHT ── */
+  .pai-card {
+    background: var(--blue);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+    margin-bottom: 12px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 24px;
+  }
+  .pai-item { text-align: center; }
+  .pai-icon { font-size: 28px; margin-bottom: 10px; }
+  .pai-label {
+    font-size: 13px; font-weight: 600;
+    color: rgba(255,255,255,0.9);
+    margin-bottom: 4px;
+  }
+  .pai-sub { font-size: 12px; color: rgba(255,255,255,0.55); line-height: 1.4; }
+
+  /* ── SHIP CARDS ── */
+  .ships-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .ship-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .ship-header {
+    padding: 18px 20px 14px;
+    border-bottom: 1px solid var(--gray3);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .ship-name {
+    font-size: 15px; font-weight: 700;
+    color: var(--black); letter-spacing: -0.01em;
+  }
+  .ship-class-badge {
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 3px 8px; border-radius: 6px;
+  }
+  .badge-intuition { background: var(--blue-light); color: var(--blue); }
+  .badge-ms12 { background: var(--green-light); color: #248a3d; }
+  .badge-ms36 { background: var(--orange-light); color: var(--orange); }
+
+  .ship-stats {
+    padding: 16px 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .ship-stat-val {
+    font-size: 18px; font-weight: 700;
+    color: var(--blue); letter-spacing: -0.02em;
+    line-height: 1;
+    margin-bottom: 3px;
+  }
+  .ship-stat-key {
+    font-size: 11px; color: var(--gray2);
+    text-transform: uppercase; letter-spacing: 0.04em;
+    font-weight: 600;
+  }
+  .ship-year-row {
+    padding: 0 20px 16px;
+    font-size: 12px; color: var(--gray1);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .ship-year-dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--green); flex-shrink: 0;
+  }
+
+  /* NEW badge for Relax */
+  .ship-new-badge {
+    display: inline-block;
+    background: #ff3b30;
+    color: white;
+    font-size: 10px; font-weight: 700;
+    padding: 2px 7px; border-radius: 5px;
+    letter-spacing: 0.03em;
+    vertical-align: middle;
+    margin-left: 6px;
+  }
+
+  /* ── DESTINATIONS ── */
+  .dest-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .dest-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    text-align: center;
+  }
+  .dest-icon { font-size: 28px; margin-bottom: 10px; }
+  .dest-name {
+    font-size: 14px; font-weight: 600;
+    color: var(--black); margin-bottom: 5px;
+  }
+  .dest-detail { font-size: 12px; color: var(--gray1); line-height: 1.4; }
+
+  /* ── DINING ── */
+  .dining-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    margin-bottom: 12px;
+  }
+  .dining-item {
+    display: grid;
+    grid-template-columns: 56px 1fr;
+    border-bottom: 1px solid var(--gray3);
+  }
+  .dining-item:last-child { border-bottom: none; }
+  .dining-type-col {
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid var(--gray3);
+    background: var(--gray4);
+    font-size: 20px;
+  }
+  .dining-content { padding: 18px 20px; }
+  .dining-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--black); margin-bottom: 3px;
+  }
+  .dining-desc { font-size: 12px; color: var(--gray1); line-height: 1.5; }
+  .dining-tag {
+    display: inline-block; margin-top: 6px;
+    font-size: 10px; font-weight: 700;
+    letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 2px 7px; border-radius: 5px;
+  }
+  .tag-included { background: var(--green-light); color: #248a3d; }
+  .tag-extra { background: var(--orange-light); color: var(--orange); }
+
+  /* ── STANDARDS ── */
+  .standards-card {
+    background: var(--white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+  }
+  .standard-item {
+    display: grid;
+    grid-template-columns: 64px 1fr;
+    border-bottom: 1px solid var(--gray3);
+  }
+  .standard-item:last-child { border-bottom: none; }
+  .standard-num-col {
+    padding: 24px 16px;
+    display: flex; align-items: center; justify-content: center;
+    border-right: 1px solid var(--gray3);
+    background: var(--gray4);
+  }
+  .standard-num { font-size: 18px; font-weight: 700; color: var(--gray2); }
+  .standard-content { padding: 20px 22px; }
+  .standard-title {
+    font-size: 14px; font-weight: 600;
+    color: var(--black); margin-bottom: 4px;
+  }
+  .standard-text { font-size: 13px; color: var(--gray1); line-height: 1.55; }
+
+  /* ── SUMMARY DARK ── */
+  .summary-card {
+    background: var(--black);
+    border-radius: var(--radius);
+    padding: 48px;
+    position: relative; overflow: hidden;
+  }
+  .summary-card::after {
+    content: '';
+    position: absolute;
+    bottom: -80px; right: -60px;
+    width: 360px; height: 360px;
+    background: radial-gradient(circle, rgba(0,113,227,0.2) 0%, transparent 65%);
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .summary-eyebrow {
+    font-size: 11px; font-weight: 700;
+    letter-spacing: 0.1em; text-transform: uppercase;
+    color: var(--blue); margin-bottom: 8px;
+  }
+  .summary-title {
+    font-size: 32px; font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em; margin-bottom: 8px; line-height: 1.1;
+  }
+  .summary-title span {
+    background: linear-gradient(90deg, #0071e3, #40b0ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .summary-sub { font-size: 14px; color: #6e6e73; margin-bottom: 36px; }
+  .summary-stats {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 12px; position: relative; z-index: 1;
+  }
+  .summary-stat {
+    background: rgba(255,255,255,0.06);
+    border: 0.5px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-sm);
+    padding: 20px; text-align: center;
+  }
+  .summary-stat-num {
+    font-size: 28px; font-weight: 700;
+    color: #f5f5f7;
+    letter-spacing: -0.02em; display: block; margin-bottom: 4px;
+  }
+  .summary-stat-label { font-size: 12px; color: #6e6e73; }
+
+  .footer {
+    text-align: center;
+    padding: 32px 24px;
+    font-size: 12px; color: var(--gray2);
+    border-top: 1px solid var(--gray3);
+    max-width: 900px; margin: 0 auto;
+  }
+
+  @media (max-width: 700px) {
+    .hero-inner { padding: 48px 20px 56px; }
+    .hero h1 { font-size: 38px; }
+    .hero-sub { font-size: 15px; }
+    .schedule-row { flex-direction: column; gap: 8px; }
+    .main { padding: 36px 16px 60px; }
+    .pai-card { grid-template-columns: 1fr; gap: 16px; }
+    .ships-grid { grid-template-columns: 1fr; }
+    .dest-grid { grid-template-columns: 1fr 1fr; }
+    .summary-card { padding: 28px 20px; }
+    .summary-stats { grid-template-columns: 1fr; gap: 8px; }
+  }
+
+
+  /* ── REAL SHIP PHOTOS ── */
+  .ship-photo {
+    height: 175px;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+  }
+  .ship-photo::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0,0,0,0.05), rgba(0,0,0,0.58));
+  }
+  .ship-photo-label {
+    position: absolute;
+    left: 16px;
+    bottom: 14px;
+    z-index: 2;
+    color: white;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .04em;
+    text-transform: uppercase;
+    background: rgba(0,0,0,.34);
+    backdrop-filter: blur(12px);
+    padding: 7px 10px;
+    border-radius: 999px;
+  }
+  .ship-photo.relax { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%20Relax%20%28cropped%29.jpg'); }
+  .ship-photo.ms7 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%207%2020240726%20Bergen.jpg'); }
+  .ship-photo.ms1 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%201%20-%20cruise%20ship%20003.jpg'); }
+  .ship-photo.ms2 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Cruise%20ship%20Mein%20Schiff%202.jpg'); }
+  .ship-photo.ms4 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%204%20%28ship%2C%202015%29%20001.jpg'); }
+  .ship-photo.ms5 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%205%20in%20the%20Port%20of%20Palma%20de%20Mallorca.jpg'); }
+  .ship-photo.ms6 { background-image: url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%206%20TUI%20cruise.jpg'); }
+  .ship-photo.flow {
+    background-image: linear-gradient(135deg, rgba(0,113,227,.92), rgba(29,29,31,.9)), url('https://commons.wikimedia.org/wiki/Special:FilePath/Mein%20Schiff%20Relax%20%28cropped%29.jpg');
+  }
+
+  /* ── WORLD ROUTE MAP ── */
+  .route-map-card {
+    background: #07111f;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 16px 40px rgba(0,0,0,0.16), 0 0 0 .5px rgba(255,255,255,.05);
+    margin-top: 12px;
+  }
+  .map-top {
+    padding: 24px 28px 8px;
+    color: white;
+  }
+  .map-title { font-size: 24px; font-weight: 800; letter-spacing: -.03em; }
+  .map-sub { margin-top: 6px; color: rgba(255,255,255,.62); font-size: 13px; line-height: 1.5; }
+  .world-map-wrap { padding: 6px 16px 18px; }
+  .world-map-svg { width: 100%; height: auto; display: block; border-radius: 16px; background: radial-gradient(circle at 50% 40%, #122b48 0%, #07111f 67%); }
+  .continent { fill: rgba(255,255,255,.18); stroke: rgba(255,255,255,.20); stroke-width: .8; }
+  .route-line { fill: none; stroke: #ff2d2d; stroke-width: 3; stroke-linecap: round; stroke-dasharray: 10 8; filter: drop-shadow(0 0 6px rgba(255,45,45,.8)); animation: dashMove 5s linear infinite; }
+  .route-line.thin { stroke-width: 2.2; opacity: .8; }
+  .port-dot { fill: #fff; stroke: #ff2d2d; stroke-width: 3; }
+  .port-label { fill: #fff; font-size: 11px; font-weight: 700; paint-order: stroke; stroke: rgba(0,0,0,.65); stroke-width: 3px; }
+  @keyframes dashMove { to { stroke-dashoffset: -90; } }
+  .route-legend {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    padding: 0 24px 24px;
+  }
+  .route-chip {
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.10);
+    color: rgba(255,255,255,.82);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 12px;
+    line-height: 1.35;
+  }
+  .route-chip strong { display:block; color:white; margin-bottom:3px; }
+
+  /* ── CREW GALLERY ── */
+  .crew-grid { display:grid; grid-template-columns: repeat(3,1fr); gap:12px; }
+  .crew-card {
+    min-height: 210px;
+    border-radius: var(--radius);
+    overflow:hidden;
+    position:relative;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 0 0 0.5px rgba(0,0,0,0.04);
+    background-size:cover;
+    background-position:center;
+  }
+  .crew-card::after { content:''; position:absolute; inset:0; background:linear-gradient(180deg, transparent 25%, rgba(0,0,0,.74)); }
+  .crew-info { position:absolute; left:18px; right:18px; bottom:16px; z-index:2; color:white; }
+  .crew-title { font-weight:800; font-size:16px; margin-bottom:4px; }
+  .crew-desc { color:rgba(255,255,255,.72); font-size:12px; line-height:1.4; }
+  .crew-service { background-image: url('https://images.unsplash.com/photo-1556745757-8d76bdb6984b?auto=format&fit=crop&w=1200&q=80'); }
+  .crew-kitchen { background-image: url('https://images.unsplash.com/photo-1556910103-1c02745aae4d?auto=format&fit=crop&w=1200&q=80'); }
+  .crew-hotel { background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=80'); }
+
+  .photo-credit {
+    margin-top: 10px;
+    font-size: 11px;
+    color: var(--gray2);
+    line-height: 1.5;
+  }
+
+  @media (max-width: 700px) {
+    .ship-photo { height: 155px; }
+    .route-legend { grid-template-columns: 1fr; padding: 0 16px 18px; }
+    .map-top { padding: 20px 18px 6px; }
+    .crew-grid { grid-template-columns: 1fr; }
+  }
+
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Sea Chefs · TUI Cruises · Training Material</div>
+    <h1>Mein Schiff<br><span>Fleet Overview</span></h1>
+    <div class="hero-sub">Fleet Concept · Ships & Specifications · Brand Standards · Onboard Experience</div>
+    <div class="schedule-row">
+      <div class="schedule-pill"><span class="pill-dot" style="background:#0071e3"></span>Founded 2008 · Hamburg, Germany</div>
+      <div class="schedule-pill"><span class="pill-dot" style="background:#34c759"></span>Premium All-Inclusive</div>
+      <div class="schedule-pill"><span class="pill-dot" style="background:#ff9500"></span>8 Ships · World's Youngest Fleet</div>
+    </div>
+  </div>
+</div>
+
+<div class="main">
+
+  <!-- ── BRAND CONCEPT ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Who They Are</div>
+      <div class="section-title">Brand Concept</div>
+    </div>
+
+    <div class="concept-card">
+      <p><strong>TUI Cruises</strong> is a 50:50 joint venture between TUI AG (Germany) and Royal Caribbean Cruises Ltd., founded in 2008 and headquartered in Hamburg. The company launched operations in 2009 and rapidly grew into one of Europe's leading premium cruise brands.</p>
+      <p>The <strong>Mein Schiff</strong> ("My Ship") brand is built around a single philosophy: <strong>Wohlfühlen</strong> — German for "well-being." Every ship is designed to feel like a floating resort, combining generous space, modern design, and a relaxed atmosphere. The primary language onboard is German, spoken by crew and used in all menus, announcements, and programmes.</p>
+      <p>TUI Cruises operates in the <strong>premium volume segment</strong> — filling the gap between a classic cruise and a club cruise. It is not a party ship, nor a luxury expedition — it is refined, modern, and guest-centred.</p>
+    </div>
+
+    <div class="pai-card">
+      <div class="pai-item">
+        <div class="pai-icon">🍽️</div>
+        <div class="pai-label">All Meals Included</div>
+        <div class="pai-sub">Main restaurants, buffet & most speciality venues</div>
+      </div>
+      <div class="pai-item">
+        <div class="pai-icon">🍹</div>
+        <div class="pai-label">100+ Drinks Included</div>
+        <div class="pai-sub">Alcoholic & non-alcoholic brands at most bars</div>
+      </div>
+      <div class="pai-item">
+        <div class="pai-icon">✅</div>
+        <div class="pai-label">Tips Included</div>
+        <div class="pai-sub">Gratuities are part of the standard fare — no tipping expected</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── FLEET ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">The Ships</div>
+      <div class="section-title">Current Fleet</div>
+    </div>
+
+    <div class="ships-grid">
+
+      <div class="ship-card">
+        <div class="ship-photo relax"><span class="ship-photo-label">Mein Schiff Relax</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff Relax <span class="ship-new-badge">NEW</span></div>
+          <div class="ship-class-badge badge-intuition">InTUItion Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">160,000</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">3,984</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">333 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">1,400</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Delivered Feb 2025 · LNG dual-fuel · Fincantieri, Italy</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms7"><span class="ship-photo-label">Mein Schiff 7</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 7</div>
+          <div class="ship-class-badge badge-ms12">MS 1–2 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">111,500</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,534</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">316 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~900</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Delivered Jun 2024 · Methanol-ready · Meyer Turku, Finland</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms1"><span class="ship-photo-label">Mein Schiff 1</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 1</div>
+          <div class="ship-class-badge badge-ms12">MS 1–2 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">111,500</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,534</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">316 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~900</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Built 2018 · Meyer Turku, Finland</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms2"><span class="ship-photo-label">Mein Schiff 2</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 2</div>
+          <div class="ship-class-badge badge-ms12">MS 1–2 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">111,500</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,534</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">316 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~900</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Built 2019 · Meyer Turku, Finland</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms4"><span class="ship-photo-label">Mein Schiff 4</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 4</div>
+          <div class="ship-class-badge badge-ms36">MS 3–6 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">99,500</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,506</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">293 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~800</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Built 2015 · Meyer Turku, Finland</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms5"><span class="ship-photo-label">Mein Schiff 5</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 5</div>
+          <div class="ship-class-badge badge-ms36">MS 3–6 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">99,800</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,534</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">293 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~800</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Built 2016 · Meyer Turku, Finland</div>
+      </div>
+
+      <div class="ship-card">
+        <div class="ship-photo ms6"><span class="ship-photo-label">Mein Schiff 6</span></div>
+        <div class="ship-header">
+          <div class="ship-name">Mein Schiff 6</div>
+          <div class="ship-class-badge badge-ms36">MS 3–6 Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">99,800</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">2,534</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">295 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val">~800</div>
+            <div class="ship-stat-key">Crew</div>
+          </div>
+        </div>
+        <div class="ship-year-row"><div class="ship-year-dot"></div>Built 2017 · Holographic theatre onboard</div>
+      </div>
+
+      <div class="ship-card" style="border: 1.5px dashed var(--gray3); box-shadow: none; background: var(--gray4);">
+        <div class="ship-photo flow"><span class="ship-photo-label">Mein Schiff Flow · coming 2026</span></div>
+        <div class="ship-header" style="background: transparent;">
+          <div class="ship-name" style="color: var(--gray1);">Mein Schiff Flow</div>
+          <div class="ship-class-badge badge-intuition">InTUItion Class</div>
+        </div>
+        <div class="ship-stats">
+          <div class="ship-stat-item">
+            <div class="ship-stat-val" style="color: var(--gray2);">160,000</div>
+            <div class="ship-stat-key">Gross Tons</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val" style="color: var(--gray2);">3,984</div>
+            <div class="ship-stat-key">Passengers</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val" style="color: var(--gray2);">333 m</div>
+            <div class="ship-stat-key">Length</div>
+          </div>
+          <div class="ship-stat-item">
+            <div class="ship-stat-val" style="color: var(--gray2);">20</div>
+            <div class="ship-stat-key">Dining Venues</div>
+          </div>
+        </div>
+        <div class="ship-year-row" style="color: var(--gray2);">
+          <div class="ship-year-dot" style="background: var(--orange);"></div>
+          Coming 2026 · LNG dual-fuel sister ship to Relax
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── DESTINATIONS ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Where We Sail</div>
+      <div class="section-title">Key Destinations</div>
+    </div>
+    <div class="dest-grid">
+      <div class="dest-card">
+        <div class="dest-icon">🌊</div>
+        <div class="dest-name">Mediterranean</div>
+        <div class="dest-detail">Greece, Italy, Spain, Croatia, Turkey — main summer season</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🏝️</div>
+        <div class="dest-name">Caribbean</div>
+        <div class="dest-detail">Barbados, Jamaica, Aruba, Curaçao — winter programme</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🌅</div>
+        <div class="dest-name">Canary Islands</div>
+        <div class="dest-detail">Tenerife, Gran Canaria, Lanzarote — autumn & winter</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🧊</div>
+        <div class="dest-name">Northern Europe</div>
+        <div class="dest-detail">Norway, Iceland, Baltic Sea — summer fjord season</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🌏</div>
+        <div class="dest-name">Asia & Orient</div>
+        <div class="dest-detail">Dubai, Japan, Southeast Asia — world voyage routes</div>
+      </div>
+      <div class="dest-card">
+        <div class="dest-icon">🌍</div>
+        <div class="dest-name">Africa & Transoceanic</div>
+        <div class="dest-detail">Cape Verde, South Africa — intercontinental voyages</div>
+      </div>
+    </div>
+
+    <div class="route-map-card">
+      <div class="map-top">
+        <div class="map-title">World Route Map — Mein Schiff</div>
+        <div class="map-sub">Красной нитью показаны основные зоны, где ходят корабли Mein Schiff: Mediterranean, Canary Islands, Northern Europe, Caribbean, Orient/Asia и transoceanic routes.</div>
+      </div>
+      <div class="world-map-wrap">
+        <svg class="world-map-svg" viewBox="0 0 900 460" role="img" aria-label="World map with red Mein Schiff route lines">
+          <rect width="900" height="460" fill="transparent"/>
+          <!-- simplified generated world map silhouette -->
+          <path class="continent" d="M98,120 C135,80 192,78 230,105 C258,126 250,158 218,168 C192,176 180,199 156,211 C121,229 88,202 74,169 C65,149 74,132 98,120 Z M230,205 C264,194 297,214 304,242 C312,275 282,312 243,316 C203,320 180,287 188,252 C194,226 206,212 230,205 Z"/>
+          <path class="continent" d="M380,100 C422,70 493,72 542,102 C573,121 582,150 552,167 C516,188 464,171 439,190 C411,211 385,187 358,166 C330,145 338,119 380,100 Z M438,199 C470,205 492,236 486,275 C480,313 455,346 430,374 C409,398 387,386 395,346 C401,309 379,282 389,247 C396,221 413,197 438,199 Z"/>
+          <path class="continent" d="M555,128 C608,74 708,82 775,128 C814,155 814,202 764,218 C711,235 671,220 635,249 C599,278 552,256 535,215 C519,177 528,153 555,128 Z M682,281 C715,266 757,274 779,304 C800,333 785,370 748,376 C711,383 668,356 660,324 C655,303 664,288 682,281 Z"/>
+          <path class="continent" d="M714,392 C746,380 803,386 828,406 C850,423 835,438 793,438 L716,438 C690,435 685,407 714,392 Z"/>
+
+          <!-- main red routes -->
+          <path class="route-line" d="M455,174 C480,150 516,143 548,156 C585,171 604,198 624,224"/>
+          <path class="route-line" d="M418,133 C440,103 486,92 532,106 C568,118 592,143 611,172"/>
+          <path class="route-line thin" d="M392,115 C360,83 322,73 286,91 C255,106 242,135 224,164"/>
+          <path class="route-line" d="M458,184 C433,207 400,219 369,211 C333,202 304,180 264,170"/>
+          <path class="route-line thin" d="M608,189 C652,174 701,180 733,212 C762,240 776,273 763,318"/>
+          <path class="route-line thin" d="M474,206 C506,236 522,279 510,322 C501,354 477,383 440,396"/>
+
+          <!-- port dots + labels -->
+          <circle class="port-dot" cx="455" cy="174" r="5"/><text class="port-label" x="464" y="169">Palma / Med</text>
+          <circle class="port-dot" cx="418" cy="133" r="5"/><text class="port-label" x="370" y="124">Kiel</text>
+          <circle class="port-dot" cx="532" cy="106" r="5"/><text class="port-label" x="538" y="100">Norway</text>
+          <circle class="port-dot" cx="224" cy="164" r="5"/><text class="port-label" x="150" y="158">Caribbean</text>
+          <circle class="port-dot" cx="369" cy="211" r="5"/><text class="port-label" x="280" y="224">Canary Islands</text>
+          <circle class="port-dot" cx="624" cy="224" r="5"/><text class="port-label" x="632" y="224">Dubai / Orient</text>
+          <circle class="port-dot" cx="763" cy="318" r="5"/><text class="port-label" x="770" y="318">Asia</text>
+          <circle class="port-dot" cx="440" cy="396" r="5"/><text class="port-label" x="365" y="410">South Africa</text>
+        </svg>
+      </div>
+      <div class="route-legend">
+        <div class="route-chip"><strong>Mein Schiff Relax / 7</strong>Mediterranean + Northern Europe</div>
+        <div class="route-chip"><strong>Mein Schiff 1 / 2</strong>Canaries + Caribbean + Med</div>
+        <div class="route-chip"><strong>Mein Schiff 4 / 5</strong>Orient, Dubai, Asia routes</div>
+        <div class="route-chip"><strong>Mein Schiff 6</strong>Norway, Baltic Sea, transoceanic</div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ── DINING ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Onboard Dining</div>
+      <div class="section-title">Restaurant Concept</div>
+    </div>
+
+    <div class="dining-card">
+      <div class="dining-item">
+        <div class="dining-type-col">🍽️</div>
+        <div class="dining-content">
+          <div class="dining-title">Atlantik Restaurant</div>
+          <div class="dining-desc">The main à la carte restaurant. Offers Mediterranean and classic European cuisine in an elegant open-kitchen setting. Signature dishes including roast beef with truffle jus. Available on all ships.</div>
+          <span class="dining-tag tag-included">Included in PAI</span>
+        </div>
+      </div>
+      <div class="dining-item">
+        <div class="dining-type-col">🥗</div>
+        <div class="dining-content">
+          <div class="dining-title">Anckelmannsplatz — Buffet Restaurant</div>
+          <div class="dining-desc">Large international buffet with live cooking stations. Asian stir-fries, Italian pastas, theme nights and alfresco seating. Open all day for casual dining.</div>
+          <span class="dining-tag tag-included">Included in PAI</span>
+        </div>
+      </div>
+      <div class="dining-item">
+        <div class="dining-type-col">🐟</div>
+        <div class="dining-content">
+          <div class="dining-title">GOSCH Sylt — Fish Market</div>
+          <div class="dining-desc">A North Sea fish market concept serving fresh seafood, shrimp, and classic German coastal dishes. Casual and popular with guests seeking lighter fare.</div>
+          <span class="dining-tag tag-included">Included in PAI</span>
+        </div>
+      </div>
+      <div class="dining-item">
+        <div class="dining-type-col">🥩</div>
+        <div class="dining-content">
+          <div class="dining-title">Surf & Turf Steakhouse</div>
+          <div class="dining-desc">Premium steakhouse with select cuts and seafood. Available on most ships as a speciality dining experience for guests who want to upgrade.</div>
+          <span class="dining-tag tag-extra">Surcharge applies</span>
+        </div>
+      </div>
+      <div class="dining-item">
+        <div class="dining-type-col">🍣</div>
+        <div class="dining-content">
+          <div class="dining-title">Hideki / Hanami — Asian & Sushi</div>
+          <div class="dining-desc">Japanese cuisine concept with sushi, sashimi, and Asian-inspired dishes. Present across the fleet under different names depending on the ship.</div>
+          <span class="dining-tag tag-extra">Surcharge applies</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <!-- ── CREW / STAFF ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">Life Onboard</div>
+      <div class="section-title">Staff & Crew Experience</div>
+    </div>
+    <div class="crew-grid">
+      <div class="crew-card crew-service">
+        <div class="crew-info">
+          <div class="crew-title">Service Team</div>
+          <div class="crew-desc">German-speaking guest service, relaxed premium style and personal attention.</div>
+        </div>
+      </div>
+      <div class="crew-card crew-kitchen">
+        <div class="crew-info">
+          <div class="crew-title">Kitchen & Dining</div>
+          <div class="crew-desc">Restaurants, buffet stations, speciality venues and Premium All-Inclusive service.</div>
+        </div>
+      </div>
+      <div class="crew-card crew-hotel">
+        <div class="crew-info">
+          <div class="crew-title">Hotel Operations</div>
+          <div class="crew-desc">Cabins, housekeeping, reception, wellness and onboard hospitality standards.</div>
+        </div>
+      </div>
+    </div>
+    <div class="photo-credit">Ship photos are loaded from Wikimedia Commons image files; staff photos are decorative Unsplash training visuals. Route map is a generated simplified visual map for training, not a live navigation chart.</div>
+  </div>
+  <!-- ── BRAND STANDARDS ── -->
+  <div class="block">
+    <div class="section-header">
+      <div class="section-eyebrow">What Crew Must Know</div>
+      <div class="section-title">Brand Standards</div>
+    </div>
+
+    <div class="standards-card">
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">01</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Language Onboard is German</div>
+          <div class="standard-text">All menus, daily programmes, and PA announcements are in German. Crew must speak English for internal communication and safety, but service interactions with guests are in German. Non-German crew must know key service phrases.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">02</div></div>
+        <div class="standard-content">
+          <div class="standard-title">PAI — Premium All-Inclusive Explained</div>
+          <div class="standard-text">The PAI (Premium Alles Inklusive) concept is the core of the Mein Schiff brand. Most meals, 100+ drinks, and gratuities are included by default. Crew must clearly understand what is included vs. what carries a surcharge to avoid guest confusion.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">03</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Wohlfühlen — The Feel-Good Philosophy</div>
+          <div class="standard-text">The Mein Schiff brand promise is well-being. Service must feel warm, relaxed, and attentive — never stiff or transactional. Guests expect a personal, resort-style experience. High pressure or rushed service is off-brand.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">04</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Open Seating — No Fixed Dining Times</div>
+          <div class="standard-text">Unlike traditional cruise lines, Mein Schiff uses open seating in main restaurants. Guests can dine at their preferred time without a reservation. This means higher flexibility for guests but requires crew to manage flow and wait times professionally.</div>
+        </div>
+      </div>
+      <div class="standard-item">
+        <div class="standard-num-col"><div class="standard-num">05</div></div>
+        <div class="standard-content">
+          <div class="standard-title">Sustainability & Environmental Awareness</div>
+          <div class="standard-text">The Mein Schiff fleet is one of the world's youngest and most eco-efficient. Newer ships use LNG fuel and zero-emission shore power. Crew should be aware of onboard waste management procedures and the brand's environmental commitments.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SUMMARY ── -->
+  <div class="summary-card">
+    <div class="summary-eyebrow">Fleet at a Glance</div>
+    <div class="summary-title">Mein Schiff —<br><span>Premium at Sea</span></div>
+    <div class="summary-sub">One of Europe's leading premium cruise brands, operating the world's youngest fleet</div>
+    <div class="summary-stats">
+      <div class="summary-stat">
+        <span class="summary-stat-num">8</span>
+        <span class="summary-stat-label">Ships in fleet (incl. Relax)</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-num">800k+</span>
+        <span class="summary-stat-label">Passengers per year</span>
+      </div>
+      <div class="summary-stat">
+        <span class="summary-stat-num">100+</span>
+        <span class="summary-stat-label">Drink brands included in PAI</span>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="footer">
+  Sea Chefs · TUI Cruises · Mein Schiff Fleet Overview · Training Department
+</div>
+
+</body>
+</html>
