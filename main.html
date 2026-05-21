@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Резюме — Болотова Марал</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: #f5f5f7;
+      color: #1d1d1f;
+      line-height: 1.6;
+      padding: 40px;
+    }
+
+    .resume {
+      max-width: 1120px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 28px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+      border-radius: 28px;
+      box-shadow: 0 18px 45px rgba(0, 0, 0, 0.06);
+      backdrop-filter: blur(20px);
+    }
+
+    .photo {
+      width: 100%;
+      height: 540px;
+      object-fit: cover;
+      border-radius: 28px;
+      display: block;
+    }
+
+    .info-card {
+      padding: 28px;
+      margin-top: 24px;
+    }
+
+    .section-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 20px;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 18px;
+      font-size: 16px;
+      color: #333;
+    }
+
+    .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      background: #f0f0f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #5f5f67;
+      font-size: 17px;
+      flex-shrink: 0;
+    }
+
+    .skill {
+      margin-bottom: 20px;
+    }
+
+    .skill-top {
+      display: flex;
+      justify-content: space-between;
+      font-size: 15px;
+      margin-bottom: 8px;
+      color: #333;
+    }
+
+    .bar {
+      height: 8px;
+      background: #e8e8ed;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .fill {
+      height: 100%;
+      background: linear-gradient(90deg, #0071e3, #5e9cff);
+      border-radius: 999px;
+    }
+
+    .header {
+      padding: 48px 8px 20px;
+    }
+
+    h1 {
+      font-size: clamp(42px, 6vw, 68px);
+      line-height: 1;
+      font-weight: 800;
+      letter-spacing: -0.06em;
+      margin-bottom: 18px;
+    }
+
+    .subtitle {
+      font-size: 23px;
+      color: #6e6e73;
+      line-height: 1.45;
+      letter-spacing: -0.02em;
+    }
+
+    .about {
+      padding: 34px;
+      margin: 20px 0 28px;
+    }
+
+    .about-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 18px;
+    }
+
+    .about p {
+      font-size: 18px;
+      color: #2d2d2f;
+      max-width: 620px;
+    }
+
+    .timeline-card {
+      padding: 34px;
+    }
+
+    .timeline {
+      position: relative;
+      margin-left: 8px;
+      padding-left: 34px;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 8px;
+      top: 10px;
+      bottom: 10px;
+      width: 2px;
+      background: #d8d8df;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 32px;
+    }
+
+    .timeline-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -33px;
+      top: 6px;
+      width: 12px;
+      height: 12px;
+      background: #0071e3;
+      border-radius: 50%;
+      box-shadow: 0 0 0 5px #f5f5f7;
+    }
+
+    .year {
+      font-size: 16px;
+      font-weight: 700;
+      color: #0066cc;
+      margin-bottom: 8px;
+    }
+
+    .role {
+      font-size: 20px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .desc {
+      color: #424245;
+      font-size: 16px;
+    }
+
+    .education {
+      grid-column: 1 / -1;
+      padding: 34px;
+    }
+
+    .education-grid {
+      display: grid;
+      gap: 24px;
+    }
+
+    .education-item {
+      display: grid;
+      grid-template-columns: 130px 1fr;
+      gap: 20px;
+      align-items: start;
+    }
+
+    .edu-year {
+      color: #0066cc;
+      font-weight: 700;
+    }
+
+    .edu-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .edu-desc {
+      color: #424245;
+    }
+
+    @media (max-width: 900px) {
+      body {
+        padding: 20px;
+      }
+
+      .resume {
+        grid-template-columns: 1fr;
+      }
+
+      .photo {
+        height: 460px;
+      }
+
+      .header {
+        padding-top: 10px;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+        padding: 0;
+      }
+
+      .resume {
+        max-width: none;
+        gap: 18px;
+      }
+
+      .card {
+        box-shadow: none;
+        border: 1px solid #e5e5ea;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="resume">
+    <aside>
+      <img class="photo" src="./images/СV Bolotova Maral-1 1.png" alt="Фото Болотова Марал" />
+
+      <section class="card info-card">
+        <h2 class="section-title">Контакты</h2>
+        <div class="contact-item"><span class="icon">☎</span><span>+996 501 060 210</span></div>
+        <div class="contact-item"><span class="icon">✉</span><span>maralduischekeeva@gmail.com</span></div>
+        <div class="contact-item"><span class="icon">◎</span><span>maral_bolotova</span></div>
+        <div class="contact-item"><span class="icon">⌂</span><span>мкр. Тунгуч 72/88</span></div>
+      </section>
+
+      <section class="card info-card">
+        <h2 class="section-title">Навыки</h2>
+        <div class="skill">
+          <div class="skill-top"><span>Немецкий язык</span><span>90%</span></div>
+          <div class="bar"><div class="fill" style="width: 90%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>Английский язык</span><span>80%</span></div>
+          <div class="bar"><div class="fill" style="width: 80%"></div></div>
+        </div>
+        <div class="skill">
+          <div class="skill-top"><span>Турецкий язык</span><span>40%</span></div>
+          <div class="bar"><div class="fill" style="width: 40%"></div></div>
+        </div>
+      </section>
+    </aside>
+
+    <section>
+      <header class="header">
+        <h1>Болотова Марал</h1>
+        <p class="subtitle">Преподаватель немецкого языка<br>Гид-экскурсовод</p>
+      </header>
+
+      <section class="card about">
+        <div class="about-title"><span class="icon">♙</span><span>О себе</span></div>
+        <p>
+          <ul style="list-style: none; padding: 0; margin-top: 10px; display: flex; flex-direction: column; gap: 16px; font-size: 17px; color: #2d2d2f;">
+            <li style="display:flex; align-items:center; gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 1v22"></path><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7H14a3.5 3.5 0 0 1 0 7H6"></path></svg>
+              <span>Ответственная и пунктуальная</span>
+            </li>
+
+            <li style="display:flex; align-items:center; gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+              <span>Общительная и позитивная</span>
+            </li>
+
+            <li style="display:flex; align-items:center; gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M9.5 2A7.5 7.5 0 0 0 2 9.5c0 2.6 1.3 4.9 3.3 6.2L4 22l6.3-1.3A7.5 7.5 0 1 0 9.5 2z"></path></svg>
+              <span>Умею выходить из сложных ситуаций</span>
+            </li>
+
+            <li style="display:flex; align-items:center; gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M16 11c1.657 0 3-1.79 3-4s-1.343-4-3-4-3 1.79-3 4 1.343 4 3 4z"></path><path d="M8 11c1.657 0 3-1.79 3-4S9.657 3 8 3 5 4.79 5 7s1.343 4 3 4z"></path><path d="M8 13c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"></path><path d="M16 13c-.29 0-.62.02-.97.05C17.42 14.02 19 15.39 19 17v2h5v-2c0-2.66-5.33-4-8-4z"></path></svg>
+              <span>Быстро нахожу общий язык с людьми</span>
+            </li>
+
+            <li style="display:flex; align-items:center; gap:12px;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M3 3h18v18H3z"></path><path d="M9 9h6v6H9z"></path></svg>
+              <span>Владею организаторскими качествами</span>
+            </li>
+          </ul>
+        </p>
+      </section>
+
+      <section class="card timeline-card">
+        <h2 class="section-title">Опыт работы</h2>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="year">2018 — 2019</div>
+            <div class="role">Волонтер</div>
+            <div class="desc">
+              <ul style="padding-left: 18px; margin-top: 8px;">
+                <li>🤝 Волонтер в национальном обществе Красный полумесяц</li>
+                <li>📌 Организация мероприятий и помощь людям</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="year">2022 — 2025</div>
+            <div class="role">Преподаватель</div>
+            <div class="desc">
+              <ul style="padding-left: 18px; margin-top: 8px;">
+                <li>🇩🇪 Преподаватель немецкого языка в компании IWEX</li>
+                <li>🗣 Проведение разговорных занятий</li>
+                <li>📚 Подготовка студентов</li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="year">2025</div>
+            <div class="role">Туристический гид</div>
+            <div class="desc">
+              <ul style="padding-left: 18px; margin-top: 8px;">
+                <li>🌍 Туристический гид в Asia Expedition</li>
+                <li>🧭 Проведение экскурсий для туристов</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <section class="card education">
+      <h2 class="section-title">Образование</h2>
+
+      <div class="timeline" style="margin-top: 28px;">
+
+        <div class="timeline-item">
+          <div class="year">2019 — 2023</div>
+          <div class="role">КГТУ им. И. Раззакова</div>
+          <div class="desc">
+            <ul style="padding-left: 18px; margin-top: 10px; display:flex; flex-direction:column; gap:10px;">
+              <li>🎨 Факультет графического дизайна</li>
+              <li>🖥 Изучение визуального дизайна и медиа</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">2021</div>
+          <div class="role">Университет Zwickau, Германия</div>
+          <div class="desc">
+            <ul style="padding-left: 18px; margin-top: 10px; display:flex; flex-direction:column; gap:10px;">
+              <li>💻 Медиа технологии</li>
+              <li>🌍 Международный академический опыт</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item">
+          <div class="year">2026</div>
+          <div class="role">Ак-Сай Трэвел</div>
+          <div class="desc">
+            <ul style="padding-left: 18px; margin-top: 10px; display:flex; flex-direction:column; gap:10px;">
+              <li>🧭 Подготовка гидов-экскурсоводов</li>
+              <li>🏔 Практика туристического сопровождения</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+</body>
+</html>
